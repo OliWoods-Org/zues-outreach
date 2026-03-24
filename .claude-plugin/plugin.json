@@ -1,0 +1,20 @@
+{
+  "name": "elevare-plugin",
+  "version": "1.0.0",
+  "description": "B2B sales automation toolkit for Elevare Health - lead scraping, email campaigns, Google Ads, social listening, and CRM integration",
+  "author": {
+    "name": "Matt Woods",
+    "email": "matt@goodcompanies.co"
+  },
+  "keywords": [
+    "b2b",
+    "sales",
+    "lead-generation",
+    "email-campaigns",
+    "apollo",
+    "hubspot",
+    "google-ads",
+    "social-listening"
+  ],
+  "license": "MIT"
+}
