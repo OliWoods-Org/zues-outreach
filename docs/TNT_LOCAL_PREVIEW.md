@@ -6,21 +6,42 @@ There is **no Vite/React bundle** in [`TNT-PPC-agent-team`](https://github.com/O
 - **`GET /docs`** — interactive API (Swagger UI)  
 - Agent routes under `/agents/...` per [`src/api/server.py`](https://github.com/OliWoods-Org/TNT-PPC-agent-team/blob/main/src/api/server.py)
 
-## Quick start (from your clone)
+## Why `dev` failed before
+
+1. **`requires-python >= 3.11`** — macOS default `python3` is often **3.9**. Use **Homebrew Python 3.12** (or 3.11+).
+2. **`pip install -e .`** needs **modern pip** — run `python -m pip install -U pip setuptools wheel` first.
+3. **Minimal `pyproject.toml`** — after editable install you still need **`fastapi`** and **`uvicorn`** (not always pulled by the stub package alone).
+
+## Quick start (verified pattern)
 
 ```bash
-cd ~/Documents/GitHub/zeus-mission-control   # or TNT-PPC-agent-team
-python3 -m venv .venv
+cd ~/Documents/GitHub/zeus-mission-control   # or clone TNT-PPC-agent-team
+
+# Must be 3.11+ (example: Homebrew)
+/opt/homebrew/bin/python3.12 -m venv .venv
 source .venv/bin/activate
-pip install --upgrade pip setuptools wheel
-pip install fastapi uvicorn pydantic pydantic-settings pyyaml httpx
+python -m pip install -U pip setuptools wheel
 pip install -e .
-python main.py serve --reload
+pip install fastapi "uvicorn[standard]" httpx
+
+python -c "from src.api.server import app; print(app.title)"   # Adam PPC Agents
+
+# Default port 8000 from Settings
+uvicorn src.api.server:app --host 127.0.0.1 --port 8765 --reload
 ```
 
-Then open **http://127.0.0.1:8000/docs** (port may differ — check `src/core/config` / `.env`).
+Open in the browser:
 
-If `pip install -e .` pulls incomplete deps, install missing packages from import errors until `python -c "from src.api.server import app"` succeeds.
+- **Swagger UI:** [http://127.0.0.1:8765/docs](http://127.0.0.1:8765/docs)  
+- **Health:** [http://127.0.0.1:8765/health](http://127.0.0.1:8765/health)
+
+Use another port if 8000/8765 is busy.
+
+CLI alternative (same app):
+
+```bash
+python main.py serve --reload
+```
 
 ## Docker (alternative)
 
@@ -28,8 +49,8 @@ If `pip install -e .` pulls incomplete deps, install missing packages from impor
 docker compose up --build
 ```
 
-Exposes **8000** per [`docker-compose.yaml`](https://github.com/OliWoods-Org/TNT-PPC-agent-team/blob/main/docker-compose.yaml). Requires `.env` with Google Ads vars for full agent behavior; `/health` may still respond without them.
+Exposes **8000** per upstream `docker-compose.yaml`. Full agent runs may need Google Ads env.
 
 ## Zeus mapping
 
-Treat **`/docs`** as the interim “TNT dashboard” until the forked **Zeus Mission Control** web app ships; mirror key metrics into Airtable per [`TNT_MISSION_CONTROL_AIRTABLE_BASE.md`](TNT_MISSION_CONTROL_AIRTABLE_BASE.md).
+Treat **`/docs`** as the interim “TNT dashboard” until **Zeus Mission Control** ships; use **Siren web** as the visual shell reference — [`SIREN_WEB_UI_FOR_ZEUS.md`](SIREN_WEB_UI_FOR_ZEUS.md). Mirror metrics into Airtable per [`TNT_MISSION_CONTROL_AIRTABLE_BASE.md`](TNT_MISSION_CONTROL_AIRTABLE_BASE.md).
