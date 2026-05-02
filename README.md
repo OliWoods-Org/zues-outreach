@@ -18,6 +18,13 @@
 | [`docs/ZEUS_FINAL_BUILD_PLAN.md`](docs/ZEUS_FINAL_BUILD_PLAN.md) | **Phased execution** — Mission Control, Airtable, workers, gates, acceptance criteria |
 | [`docs/ZEUS_OUTREACH_PLAN.md`](docs/ZEUS_OUTREACH_PLAN.md) | Portfolio bases, Listen vs responder, affiliate, Growth Brain, v2 ideas |
 | [`docs/AIRTABLE_ZEUS_SCHEMA.md`](docs/AIRTABLE_ZEUS_SCHEMA.md) | Zeus table/field reference (Brand, Publish, Listen, Brain, Affiliate) |
+| [`docs/ZEUS_MISSION_CONTROL_IA.md`](docs/ZEUS_MISSION_CONTROL_IA.md) | Mission Control IA — lanes + Zeus modules (TNT fork) |
+| [`docs/PRICING_SKUS.md`](docs/PRICING_SKUS.md) | Zeus narrative + tier SKUs (Core, Listen, Responder, …) |
+| [`docs/AFFILIATE_MODULE.md`](docs/AFFILIATE_MODULE.md) | Affiliate / Viral Loops–class + payouts tiers |
+| [`docs/SOCIAL_LISTEN_TIERS.md`](docs/SOCIAL_LISTEN_TIERS.md) | Listen metering vs AI responder |
+| [`docs/GROWTH_BRAIN_OPTIMIZER.md`](docs/GROWTH_BRAIN_OPTIMIZER.md) | Growth Brain cross-channel optimizer |
+| [`docs/BACKLOG_DECISIONS.md`](docs/BACKLOG_DECISIONS.md) | Open decisions (MAMA MCP, GoodBot vs 411, DOM CRE) |
+| [`docs/V2_BACKLOG_PICKS.md`](docs/V2_BACKLOG_PICKS.md) | v2 roadmap picks from outreach plan §18 |
 | [`docs/ELEVAR_OUTREACH_AIRTABLE.md`](docs/ELEVAR_OUTREACH_AIRTABLE.md) | Elevar `Leads` table + env; **Apollo pilot** (`scripts/elevar_apollo_pilot.py`, §7) |
 | [`docs/LOW_BUDGET_LEAD_STACK.md`](docs/LOW_BUDGET_LEAD_STACK.md) | RapidAPI vs Apify keys, free vs paid scraping, cost-conscious stack |
 

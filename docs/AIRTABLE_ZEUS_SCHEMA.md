@@ -131,6 +131,30 @@ Follow **`Leads`** pattern from Elevar doc: **Email** as upsert key; link **Prod
 
 ---
 
+## SEO / Notebook (Brain inputs — optional tables)
+
+| Table | Purpose |
+|-------|---------|
+| **ResearchPlans** | Notebook / SEO themes; Product link; Status |
+| **ContentBriefs** | Generated outlines; links to PublishQueue rows |
+
+_Add when Brain Pro SKU is sold; minimal fields avoid schema creep._
+
+---
+
+## Listen tier config (optional helper)
+
+| Field | Type | Notes |
+|-------|------|-------|
+| Product | Link → Products | |
+| Daily TrendPosts cap | Number | Worker reads this or env override |
+| Keyword slots | Number | Max active ListenKeywords |
+| Tier name | Single select | Core, Listen Pro, Enterprise |
+
+_Alternatively encode caps in env per deployment — doc in [`SOCIAL_LISTEN_TIERS.md`](SOCIAL_LISTEN_TIERS.md)._
+
+---
+
 ## Growth Brain & optimization
 
 ### PhrasePerformance

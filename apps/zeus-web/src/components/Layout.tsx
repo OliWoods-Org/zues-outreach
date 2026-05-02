@@ -23,8 +23,13 @@ export const salesNavGroups: { heading: string; items: SalesNavItem[] }[] = [
     items: [
       { path: '/listen', label: 'Listen', lane: 'growth' },
       { path: '/target', label: 'Target', lane: 'growth' },
+      { path: '/engage', label: 'Engage', lane: 'growth' },
+      { path: '/convert', label: 'Convert', lane: 'growth' },
+      { path: '/report', label: 'Report', lane: 'growth' },
       { path: '/publish', label: 'Publish', lane: 'growth' },
+      { path: '/influencers', label: 'Influencers', lane: 'growth' },
       { path: '/brand', label: 'Brand kit', lane: 'growth' },
+      { path: '/brand/wizard', label: 'Brand wizard', lane: 'growth' },
       { path: '/affiliates', label: 'Affiliates', lane: 'growth' },
       { path: '/marketplace', label: 'Marketplace', lane: 'growth' },
       { path: '/briefings', label: 'Briefings', lane: 'growth' },

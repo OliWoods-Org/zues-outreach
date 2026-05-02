@@ -132,6 +132,8 @@ Map as **optional Zeus add-on** modules:
 - [ ] Additional Zeus build items: §14 (social queue, MAMA autoposter inventory, Airtable schemas, branding wizard, briefings, optimizer).
 - [ ] **Affiliate module** (§15); **social listen tiers** + daily Airtable logs (§16); **Growth Brain** inputs/outputs (§17); review **§18** backlog for v2 picks.
 
+**Strategy implementation docs (repo):** IA [`ZEUS_MISSION_CONTROL_IA.md`](ZEUS_MISSION_CONTROL_IA.md) · pricing [`PRICING_SKUS.md`](PRICING_SKUS.md) · affiliate [`AFFILIATE_MODULE.md`](AFFILIATE_MODULE.md) · listen tiers [`SOCIAL_LISTEN_TIERS.md`](SOCIAL_LISTEN_TIERS.md) · Brain [`GROWTH_BRAIN_OPTIMIZER.md`](GROWTH_BRAIN_OPTIMIZER.md) · publish workers [`SOCIAL_PUBLISH_WORKERS.md`](SOCIAL_PUBLISH_WORKERS.md) · brand wizard [`BRAND_WIZARD.md`](BRAND_WIZARD.md) · intelligence loop [`INTELLIGENCE_LOOP.md`](INTELLIGENCE_LOOP.md) · Airtable segmentation [`AIRTABLE_SEGMENTATION.md`](AIRTABLE_SEGMENTATION.md) · backlog decisions [`BACKLOG_DECISIONS.md`](BACKLOG_DECISIONS.md) · §18 picks [`V2_BACKLOG_PICKS.md`](V2_BACKLOG_PICKS.md) · Phase 2 APIs [`PHASE2_DASHBOARD_APIS.md`](PHASE2_DASHBOARD_APIS.md) · content factory [`CONTENT_FACTORY_PIPELINE.md`](CONTENT_FACTORY_PIPELINE.md).
+
 ---
 
 ## 7. Codex / OpenAI usage note

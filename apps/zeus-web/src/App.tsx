@@ -10,6 +10,11 @@ import { MissionControl } from './pages/MissionControl';
 import { Campaigns } from './pages/Campaigns';
 import { Analytics } from './pages/Analytics';
 import { ModuleStub } from './pages/ModuleStub';
+import { AffiliatesModule } from './pages/AffiliatesModule';
+import { BriefingsBrain } from './pages/BriefingsBrain';
+import { BrandWizard } from './pages/BrandWizard';
+import { InfluencersModule } from './pages/InfluencersModule';
+import { ListenModule } from './pages/ListenModule';
 import { PpcDashboard } from './pages/PpcDashboard';
 import { PpcAgentDetail } from './pages/PpcAgentDetail';
 import { SocialActivity } from './pages/SocialActivity';
@@ -46,10 +51,7 @@ function App() {
               path="/listen"
               element={
                 <SalesOnly>
-                  <ModuleStub
-                    title="Listen"
-                    description="Social intelligence — TrendPosts, keywords, tier caps. Pair with /social-listen and scripts/trendposts_append.py."
-                  />
+                  <ListenModule />
                 </SalesOnly>
               }
             />
@@ -60,6 +62,39 @@ function App() {
                   <ModuleStub
                     title="Target"
                     description="ICP, Apollo lists, Lead Score, Airtable pipeline — same lane as find-leads / enrich."
+                  />
+                </SalesOnly>
+              }
+            />
+            <Route
+              path="/engage"
+              element={
+                <SalesOnly>
+                  <ModuleStub
+                    title="Engage"
+                    description="Email sequences (Instantly) + Siren voice — plugin agents and campaigns. Pairs with Voice → Campaigns & Chat."
+                  />
+                </SalesOnly>
+              }
+            />
+            <Route
+              path="/convert"
+              element={
+                <SalesOnly>
+                  <ModuleStub
+                    title="Convert"
+                    description="CRM + pipeline — HubSpot sync, meetings booked, stages in Airtable Leads. Links to Pipeline."
+                  />
+                </SalesOnly>
+              }
+            />
+            <Route
+              path="/report"
+              element={
+                <SalesOnly>
+                  <ModuleStub
+                    title="Report"
+                    description="Unified KPI lens — campaign + social + optional content metrics; deep links to Analytics & Briefings."
                   />
                 </SalesOnly>
               }
@@ -87,13 +122,26 @@ function App() {
               }
             />
             <Route
+              path="/brand/wizard"
+              element={
+                <SalesOnly>
+                  <BrandWizard />
+                </SalesOnly>
+              }
+            />
+            <Route
+              path="/influencers"
+              element={
+                <SalesOnly>
+                  <InfluencersModule />
+                </SalesOnly>
+              }
+            />
+            <Route
               path="/affiliates"
               element={
                 <SalesOnly>
-                  <ModuleStub
-                    title="Affiliates"
-                    description="Viral Loops–class programs, referral links, RewardsQueue."
-                  />
+                  <AffiliatesModule />
                 </SalesOnly>
               }
             />
@@ -101,11 +149,7 @@ function App() {
               path="/briefings"
               element={
                 <SalesOnly>
-                  <ModuleStub
-                    eyebrow="Growth Brain"
-                    title="Briefings & optimizer"
-                    description="Morning brief, OptimizationSuggestions, AgentRuns — approval-gated."
-                  />
+                  <BriefingsBrain />
                 </SalesOnly>
               }
             />
