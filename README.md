@@ -1,17 +1,31 @@
-# Elevare Plugin
+# Zeus Growth OS — Claude plugin (execution layer)
 
-B2B sales automation toolkit for Elevare Health. Designed for non-technical users to run lead generation, email campaigns, Google Ads, and social listening operations.
+**Zeus** is the bundled growth stack: lead discovery, enrichment, email + PPC insight, CRM sync, **social listening**, and **Airtable** as your pipeline brain. This repo is the **Claude Code plugin** that operators use day to day. **Mission Control** (the web dashboard with PPC agents) is a **separate app** — forked from the TNT dashboard; see the master plan below.
 
-## Features
+**Elevar Health** is the first vertical example (men’s telehealth / partnerships); the same plugin powers other product-line bases in the [Zeus Outreach](https://github.com/OliWoods-Org/zues-outreach) workspace.
+
+## Master build plan (read this)
+
+| Document | Purpose |
+|----------|---------|
+| [`docs/CLAUDE_TASKS.md`](docs/CLAUDE_TASKS.md) | **Claude Code checklist** — tasks by track to finish Zeus |
+| [`docs/ZEUS_FINAL_BUILD_PLAN.md`](docs/ZEUS_FINAL_BUILD_PLAN.md) | **Phased execution** — Mission Control, Airtable, workers, gates, acceptance criteria |
+| [`docs/ZEUS_OUTREACH_PLAN.md`](docs/ZEUS_OUTREACH_PLAN.md) | Portfolio bases, Listen vs responder, affiliate, Growth Brain, v2 ideas |
+| [`docs/AIRTABLE_ZEUS_SCHEMA.md`](docs/AIRTABLE_ZEUS_SCHEMA.md) | Zeus table/field reference (Brand, Publish, Listen, Brain, Affiliate) |
+| [`docs/ELEVAR_OUTREACH_AIRTABLE.md`](docs/ELEVAR_OUTREACH_AIRTABLE.md) | Elevar `Leads` table + env; **Apollo pilot** (`scripts/elevar_apollo_pilot.py`, §7) |
+
+## Features (slash commands)
 
 | Command | Description |
 |---------|-------------|
+| `/zeus` | Index to Zeus docs and build tracks |
 | `/find-leads` | Search Apollo.io for prospects by criteria |
 | `/enrich-leads` | Add phone, email, LinkedIn to contact lists |
 | `/send-campaign` | Send personalized email campaigns via Instantly |
 | `/ads-report` | Get Google Ads performance metrics |
-| `/social-listen` | Monitor Reddit/Twitter for opportunities |
+| `/social-listen` | Monitor Reddit/X for keywords (intelligence lane — feeds TrendPosts via workers per build plan) |
 | `/crm-sync` | Push leads to HubSpot CRM |
+| `/airtable-sync` | Push or upsert leads to Airtable (scoped outreach base; dedupe by Email) |
 
 ## Installation
 
@@ -20,94 +34,71 @@ B2B sales automation toolkit for Elevare Health. Designed for non-technical user
 - Claude Code installed (`npm install -g @anthropic-ai/claude-code`)
 - API keys for the services you want to use
 
-### Quick Install
+### Quick install
 
 ```bash
-# Clone the plugin
-git clone https://github.com/OliWoods-Org/elevare-plugin.git ~/.claude/plugins/elevare-plugin
+# One-liner (see scripts/install.sh for full behavior)
+curl -fsSL https://raw.githubusercontent.com/OliWoods-Org/zues-outreach/main/scripts/install.sh | bash
+```
 
-# Add your API keys
-cp ~/.claude/plugins/elevare-plugin/.env.example ~/.elevare-env
-# Edit ~/.elevare-env with your keys
-echo "source ~/.elevare-env" >> ~/.zshrc
+Or clone manually:
+
+```bash
+mkdir -p ~/.claude/plugins
+git clone https://github.com/OliWoods-Org/zues-outreach.git ~/.claude/plugins/zues-outreach
+
+cp ~/.claude/plugins/zues-outreach/.env.example ~/.zeus-env
+# Edit ~/.zeus-env — or keep using ~/.elevare-env if you already have it
+echo "source ~/.zeus-env" >> ~/.zshrc
 source ~/.zshrc
 ```
 
-## Required API Keys
+> **Legacy:** installs under `~/.claude/plugins/elevare-plugin` still work if you pull `main` from this repo; new installs use `zues-outreach` per `scripts/install.sh`.
 
-Create `~/.elevare-env` with these keys:
+## Required API keys
 
-```bash
-# Apollo.io - Lead database
-export APOLLO_API_KEY="your-apollo-key"
+Copy [`.env.example`](.env.example) to `~/.zeus-env` (or `~/.elevare-env`) and set:
 
-# Instantly.ai - Email campaigns
-export INSTANTLY_API_KEY="your-instantly-key"
+- **Apollo** — lead database  
+- **Instantly** — email campaigns  
+- **Google Ads** — PPC reports  
+- **HubSpot** — CRM  
+- **Airtable** — PAT scoped to **one outreach base** (`AIRTABLE_BASE_ID`) — see [`commands/airtable-sync.md`](commands/airtable-sync.md)  
+- **Reddit / X** — social listening (optional)
 
-# Google Ads - PPC management
-export GOOGLE_ADS_CLIENT_ID="your-client-id"
-export GOOGLE_ADS_CLIENT_SECRET="your-client-secret"
-export GOOGLE_ADS_REFRESH_TOKEN="your-refresh-token"
-export GOOGLE_ADS_CUSTOMER_ID="your-customer-id"
+## Usage examples
 
-# HubSpot - CRM
-export HUBSPOT_API_KEY="your-hubspot-key"
+### Zeus index
 
-# Reddit - Social listening
-export REDDIT_CLIENT_ID="your-reddit-client-id"
-export REDDIT_CLIENT_SECRET="your-reddit-client-secret"
-export REDDIT_USERNAME="your-reddit-username"
-export REDDIT_PASSWORD="your-reddit-password"
+```
+/zeus plan
 ```
 
-## Usage Examples
+### Find leads
 
-### Find Leads
 ```
 /find-leads wellness clinics in Texas
 /find-leads pharmacies in California with 10+ employees
-/find-leads "medical director" at healthcare companies
 ```
 
-### Enrich Contacts
+### Airtable sync (after find/enrich)
+
 ```
-/enrich-leads contacts.csv
-/enrich-leads apollo-export.csv --add-linkedin
+/airtable-sync leads.csv
 ```
 
-### Send Email Campaign
-```
-/send-campaign leads.csv "partnership-outreach"
-/send-campaign warm-leads.csv "follow-up" --schedule "tomorrow 9am"
-```
+Dry run:
 
-### Get Ads Report
-```
-/ads-report
-/ads-report --period "last 7 days"
-/ads-report --campaign "TRT Texas"
-```
-
-### Social Listening
-```
-/social-listen "TRT" "testosterone therapy"
-/social-listen "semaglutide" --reddit-only
-```
-
-### Sync to CRM
-```
-/crm-sync leads.csv
-/crm-sync --from-apollo --tag "wellness-clinic"
+```bash
+python3 scripts/airtable-push-leads.py leads.csv --dry-run
 ```
 
 ## Agents
 
-The plugin includes specialized agents that can be triggered automatically:
-
-- **lead-prospector** - Autonomous lead research and scoring
-- **campaign-builder** - Create email sequences from briefs
-- **social-monitor** - Find and respond to social opportunities
+- **lead-prospector** — Lead research and scoring  
+- **campaign-builder** — Email sequences from briefs  
+- **social-monitor** — Social opportunities  
 
 ## Support
 
-For issues or questions, contact Matt Woods or refer to the Elevare Notion workspace.
+Matt Woods — Good Companies / OliWoods org. Notion: Elevare / Zeus workspace as applicable.

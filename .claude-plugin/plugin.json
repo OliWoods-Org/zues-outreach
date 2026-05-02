@@ -1,20 +1,24 @@
 {
-  "name": "elevare-plugin",
+  "name": "zues-outreach",
   "version": "1.0.0",
-  "description": "B2B sales automation toolkit for Elevare Health - lead scraping, email campaigns, Google Ads, social listening, and CRM integration",
+  "description": "Zeus Growth OS — Claude Code execution layer: lead gen, enrichment, Instantly email, Google Ads, HubSpot CRM, Airtable sync, Reddit/X social listening. Mission Control UI is a separate app (fork TNT dashboard).",
   "author": {
     "name": "Matt Woods",
     "email": "matt@goodcompanies.co"
   },
   "keywords": [
+    "zeus",
+    "growth-os",
     "b2b",
     "sales",
     "lead-generation",
     "email-campaigns",
     "apollo",
     "hubspot",
+    "airtable",
     "google-ads",
-    "social-listening"
+    "social-listening",
+    "outreach"
   ],
   "license": "MIT"
 }

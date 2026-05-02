@@ -1,9 +1,8 @@
 #!/bin/bash
-# Check if Elevare API keys are configured
+# Warn if common Zeus / execution-layer API keys are missing (optional keys only)
 
 MISSING_KEYS=""
 
-# Check each API key
 if [ -z "$APOLLO_API_KEY" ]; then
     MISSING_KEYS="$MISSING_KEYS\n  - APOLLO_API_KEY (for /find-leads)"
 fi
@@ -16,10 +15,9 @@ if [ -z "$HUBSPOT_API_KEY" ]; then
     MISSING_KEYS="$MISSING_KEYS\n  - HUBSPOT_API_KEY (for /crm-sync)"
 fi
 
-# Only show warning if keys are missing
 if [ -n "$MISSING_KEYS" ]; then
-    echo "⚠️  Elevare Plugin: Some API keys not configured:"
+    echo "⚠️  Zeus (zues-outreach): some API keys not set in the environment:"
     echo -e "$MISSING_KEYS"
     echo ""
-    echo "Add keys to ~/.elevare-env and run: source ~/.elevare-env"
+    echo "Add keys to ~/.zeus-env or ~/.elevare-env, then: source that file"
 fi
