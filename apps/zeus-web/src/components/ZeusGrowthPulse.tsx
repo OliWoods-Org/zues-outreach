@@ -43,7 +43,7 @@ function GeoRing({ score }: { score: number }) {
 export function ZeusGrowthPulse() {
   const g = growthOsPulse;
   return (
-    <section className="space-y-3" aria-label="Growth OS pulse">
+    <section className="space-y-3 min-w-0" aria-label="Growth OS pulse">
       <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-2">
         <div>
           <p className="text-[10px] uppercase tracking-[0.2em] text-teal-400/90">Growth OS</p>
@@ -54,10 +54,10 @@ export function ZeusGrowthPulse() {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-3">
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-3">
         <Link
           to="/listen"
-          className="group zeus-surface-muted zeus-tile-accent-teal p-4 md:p-5 flex flex-col min-h-[140px] hover:border-teal-400/30 transition-colors"
+          className="group zeus-surface-muted zeus-tile-accent-teal p-4 md:p-5 flex flex-col min-h-[140px] hover:border-teal-400/30 transition-colors min-w-0"
         >
           <div className="flex items-center justify-between mb-3">
             <span className="inline-flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-wider text-teal-300/90">
@@ -78,19 +78,19 @@ export function ZeusGrowthPulse() {
 
         <Link
           to="/publish"
-          className="group zeus-surface-muted zeus-tile-accent-amber p-4 md:p-5 flex flex-col min-h-[140px] hover:border-amber-400/25 transition-colors"
+          className="group zeus-surface-muted zeus-tile-accent-amber p-4 md:p-5 flex flex-col min-h-[140px] hover:border-amber-400/25 transition-colors min-w-0"
         >
           <div className="flex items-center justify-between mb-3">
             <span className="text-[10px] font-semibold uppercase tracking-wider text-amber-300/85">Publish</span>
             <Megaphone className="w-4 h-4 text-amber-400/70" />
           </div>
-          <div className="flex gap-4 items-baseline">
-            <div>
+          <div className="flex flex-wrap gap-x-4 gap-y-2 items-baseline">
+            <div className="min-w-0">
               <p className="text-3xl font-semibold text-white tabular-nums">{g.publishQueued}</p>
               <p className="text-[11px] text-zinc-500">queued</p>
             </div>
-            <div className="text-zinc-600">·</div>
-            <div>
+            <div className="text-zinc-600 hidden xs:inline">·</div>
+            <div className="min-w-0">
               <p className="text-xl font-semibold text-zinc-200 tabular-nums">{g.publishScheduled48h}</p>
               <p className="text-[11px] text-zinc-500">in 48h</p>
             </div>
@@ -100,7 +100,7 @@ export function ZeusGrowthPulse() {
 
         <Link
           to="/brand"
-          className="group zeus-surface-muted zeus-tile-accent-violet p-4 md:p-5 flex flex-col justify-between min-h-[140px] hover:border-violet-400/25 transition-colors"
+          className="group zeus-surface-muted zeus-tile-accent-violet p-4 md:p-5 flex flex-col justify-between min-h-[140px] hover:border-violet-400/25 transition-colors min-w-0"
         >
           <div className="flex items-center justify-between w-full mb-1">
             <span className="text-[10px] font-semibold uppercase tracking-wider text-violet-300/90">Brand & GEO</span>
@@ -110,7 +110,7 @@ export function ZeusGrowthPulse() {
           <p className="text-[11px] text-zinc-500 mt-2">Snippets, schema, positioning</p>
         </Link>
 
-        <div className="zeus-surface-muted p-4 md:p-5 flex flex-col min-h-[140px] border border-white/[0.06]">
+        <div className="zeus-surface-muted p-4 md:p-5 flex flex-col min-h-[140px] border border-white/[0.06] min-w-0">
           <div className="flex items-center justify-between mb-3">
             <span className="text-[10px] font-semibold uppercase tracking-wider text-zinc-500">Pipeline brain</span>
             <Database className="w-4 h-4 text-cyan-400/70" />
@@ -119,7 +119,7 @@ export function ZeusGrowthPulse() {
           <p className="text-2xl font-semibold text-teal-300/95 tabular-nums mt-1">{g.airtableLastSyncLabel}</p>
           <p className="text-[11px] text-zinc-500 mt-auto pt-3">
             {g.affiliateActiveLinks} affiliate links live ·{' '}
-            <Link to="/affiliates" className="text-teal-400/90 hover:text-teal-300">
+            <Link to="/affiliates" className="text-teal-400/90 hover:text-teal-300 py-2 inline-block align-middle">
               Affiliates
             </Link>
           </p>

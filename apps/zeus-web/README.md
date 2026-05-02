@@ -4,6 +4,8 @@ Vite + React app: **Siren-style glass / cross-hatch visual system**, **Zeus** pr
 
 Strategy IA: [`docs/ZEUS_MISSION_CONTROL_IA.md`](../../docs/ZEUS_MISSION_CONTROL_IA.md).
 
+**Mobile:** [`docs/ZEUS_MOBILE_UX_PLAN.md`](docs/ZEUS_MOBILE_UX_PLAN.md) · [`docs/ZEUS_MOBILE_VISUAL_AUDIT.md`](docs/ZEUS_MOBILE_VISUAL_AUDIT.md) — safe-area utilities in `src/index.css`, `xs:475px` in `tailwind.config.js`.
+
 ## Run locally
 
 ```bash

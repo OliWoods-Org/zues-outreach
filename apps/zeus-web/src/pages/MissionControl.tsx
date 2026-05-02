@@ -58,7 +58,7 @@ export function MissionControl() {
   ];
 
   return (
-    <div className="space-y-8 max-w-7xl">
+    <div className="space-y-6 sm:space-y-8 max-w-7xl w-full min-w-0">
       <ZeusMissionHero />
 
       <ZeusGrowthPulse />
@@ -66,34 +66,34 @@ export function MissionControl() {
       <MissionKpiCharts />
 
       <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-4">
-        <div>
+        <div className="min-w-0">
           <p className="text-[11px] uppercase tracking-[0.2em] text-teal-500/80 mb-2">Command center</p>
-          <h2 className="text-2xl font-semibold text-white tracking-tight">Mission Control</h2>
+          <h2 className="text-xl sm:text-2xl font-semibold text-white tracking-tight">Mission Control</h2>
           <p className="text-sm text-zinc-500 mt-2 max-w-xl leading-relaxed">
             {workspace.name} — Growth OS telemetry plus dial execution, marketplace, and Guard in one shell (not a
             voice-only CRM).
           </p>
         </div>
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-col sm:flex-row sm:flex-wrap gap-2 w-full lg:w-auto">
           <Link
             to="/listen"
-            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl zeus-cta-surge text-sm font-semibold"
+            className="inline-flex items-center justify-center gap-2 min-h-10 px-4 py-2.5 rounded-xl zeus-cta-surge text-sm font-semibold shrink-0"
           >
-            <Ear className="w-4 h-4" />
+            <Ear className="w-4 h-4 shrink-0" />
             Listen
           </Link>
           <Link
             to="/campaigns"
-            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg btn-primary-railway text-sm font-semibold"
+            className="inline-flex items-center justify-center gap-2 min-h-10 px-4 py-2.5 rounded-lg btn-primary-railway text-sm font-semibold shrink-0"
           >
-            <Megaphone className="w-4 h-4" />
+            <Megaphone className="w-4 h-4 shrink-0" />
             Campaigns
           </Link>
           <Link
             to="/scripts"
-            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-white/[0.06] text-white text-sm font-medium hover:bg-white/[0.1] border border-white/[0.1]"
+            className="inline-flex items-center justify-center gap-2 min-h-10 px-4 py-2.5 rounded-lg bg-white/[0.06] text-white text-sm font-medium hover:bg-white/[0.1] border border-white/[0.1] shrink-0"
           >
-            <BookOpen className="w-4 h-4" />
+            <BookOpen className="w-4 h-4 shrink-0" />
             Scripts
           </Link>
         </div>
@@ -104,7 +104,7 @@ export function MissionControl() {
           <button
             type="button"
             onClick={dismissOnboarding}
-            className="absolute top-3 right-3 p-1.5 rounded-lg text-zinc-600 hover:text-white hover:bg-white/5"
+            className="absolute top-2 right-2 sm:top-3 sm:right-3 min-h-10 min-w-10 inline-flex items-center justify-center rounded-lg text-zinc-600 hover:text-white hover:bg-white/5"
             aria-label="Dismiss onboarding"
           >
             <X className="w-4 h-4" />
@@ -118,7 +118,7 @@ export function MissionControl() {
               <li key={item.id}>
                 <Link
                   to={item.href}
-                  className={`flex items-center gap-3 p-3 rounded-lg border transition-colors ${
+                  className={`flex items-center gap-3 min-h-10 p-3 rounded-lg border transition-colors ${
                     item.done
                       ? 'border-emerald-500/25 bg-emerald-500/5 text-emerald-300/90'
                       : 'border-[rgba(255,255,255,0.06)] hover:border-violet-400/35 hover:bg-violet-500/[0.04]'
@@ -152,7 +152,10 @@ export function MissionControl() {
               </p>
             </div>
           </div>
-          <Link to="/settings" className="text-xs text-brand-blue hover:text-sky-300 whitespace-nowrap">
+          <Link
+            to="/settings"
+            className="inline-flex items-center min-h-10 text-xs text-brand-blue hover:text-sky-300 whitespace-nowrap py-1 sm:py-0"
+          >
             Billing & limits →
           </Link>
         </div>
@@ -192,7 +195,10 @@ export function MissionControl() {
               <Activity className="w-4 h-4 text-brand-blue" />
               CRM activity
             </h3>
-            <Link to="/analytics" className="text-[11px] text-brand-blue hover:text-sky-300">
+            <Link
+              to="/analytics"
+              className="inline-flex items-center justify-center min-h-10 px-1 text-[11px] text-brand-blue hover:text-sky-300 sm:min-h-0 sm:px-0"
+            >
               Analytics
             </Link>
           </div>
@@ -234,8 +240,11 @@ export function MissionControl() {
               </li>
             ))}
           </ul>
-          <Link to="/chat" className="inline-flex items-center gap-1 text-xs text-brand-blue mt-4 hover:text-sky-300">
-            Open transcripts <ArrowRight className="w-3 h-3" />
+          <Link
+            to="/chat"
+            className="inline-flex items-center gap-1 min-h-10 text-xs text-brand-blue mt-4 hover:text-sky-300"
+          >
+            Open transcripts <ArrowRight className="w-3 h-3 shrink-0" />
           </Link>
         </div>
 
@@ -246,12 +255,18 @@ export function MissionControl() {
             Voice metrics above stay on teal “surge” surfaces. Scripts, chat coach, and carrier health round out outbound —
             distinct from Growth OS Listen / Publish lanes.
           </p>
-          <div className="flex flex-wrap gap-2">
-            <Link to="/chat" className="text-xs font-medium text-teal-300 hover:text-teal-200 inline-flex items-center gap-1">
-              Chat coach <ArrowRight className="w-3 h-3" />
+          <div className="flex flex-col xs:flex-row xs:flex-wrap gap-2 xs:items-center">
+            <Link
+              to="/chat"
+              className="text-xs font-medium text-teal-300 hover:text-teal-200 inline-flex items-center gap-1 min-h-10"
+            >
+              Chat coach <ArrowRight className="w-3 h-3 shrink-0" />
             </Link>
-            <span className="text-zinc-700">·</span>
-            <Link to="/pipeline" className="text-xs font-medium text-zinc-400 hover:text-white">
+            <span className="hidden xs:inline text-zinc-700">·</span>
+            <Link
+              to="/pipeline"
+              className="text-xs font-medium text-zinc-400 hover:text-white inline-flex items-center min-h-10"
+            >
               Pipeline
             </Link>
           </div>
@@ -265,7 +280,10 @@ export function MissionControl() {
               <Megaphone className="w-4 h-4 text-brand-blue" />
               Campaigns
             </h3>
-            <Link to="/campaigns" className="text-xs text-brand-blue hover:text-sky-300">
+            <Link
+              to="/campaigns"
+              className="inline-flex items-center justify-center min-h-10 px-1 text-xs text-brand-blue hover:text-sky-300 sm:min-h-0 sm:px-0"
+            >
               Manage all
             </Link>
           </div>

@@ -2,7 +2,31 @@
 @tailwind components;
 @tailwind utilities;
 
+/*
+ * Safe areas (notch, Dynamic Island, home indicator, rounded corners).
+ *
+ * env(safe-area-inset-*) is 0 unless the viewport uses viewport-fit=cover (add to meta viewport
+ * content: width=device-width, initial-scale=1, viewport-fit=cover) so content can extend edge-to-edge
+ * while insets remain available.
+ *
+ * Patterns:
+ * - Single-edge gutters: pt-safe | pb-safe | pl-safe | pr-safe | px-safe | py-safe | p-safe
+ * - Compose with Tailwind spacing without losing insets — use arbitrary values with CSS vars, e.g.
+ *   pb-[calc(1.5rem+var(--safe-area-inset-bottom))]
+ * - Full-screen / modal wrapper that should not clip under bars: apply p-safe or py-safe px-safe on
+ *   your scroll root; keep railway-app-shell as the outer flex host and pad the inner scroll column.
+ * - Fixed bottom UI (tab bars): add design padding plus inset, e.g.
+ *   padding-bottom: calc(0.75rem + env(safe-area-inset-bottom, 0px)) or class pb-fixed-ui below.
+ */
+
 /* CoFounder.software alignment: void black, blue + gold, glass surfaces (Railway structure = grid in CrossGridOverlay) */
+:root {
+  --safe-area-inset-top: env(safe-area-inset-top, 0px);
+  --safe-area-inset-right: env(safe-area-inset-right, 0px);
+  --safe-area-inset-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-area-inset-left: env(safe-area-inset-left, 0px);
+}
+
 html {
   background-color: #050507;
 }
@@ -123,6 +147,37 @@ body {
       radial-gradient(ellipse 80% 60% at 20% 20%, rgba(34, 211, 238, 0.12) 0%, transparent 50%),
       radial-gradient(ellipse 70% 50% at 90% 10%, rgba(212, 168, 85, 0.1) 0%, transparent 45%),
       linear-gradient(165deg, rgba(10, 14, 22, 0.95) 0%, rgba(5, 6, 10, 0.98) 100%);
+  }
+}
+
+@layer utilities {
+  .pt-safe {
+    padding-top: var(--safe-area-inset-top);
+  }
+  .pb-safe {
+    padding-bottom: var(--safe-area-inset-bottom);
+  }
+  .pl-safe {
+    padding-left: var(--safe-area-inset-left);
+  }
+  .pr-safe {
+    padding-right: var(--safe-area-inset-right);
+  }
+  .px-safe {
+    padding-left: var(--safe-area-inset-left);
+    padding-right: var(--safe-area-inset-right);
+  }
+  .py-safe {
+    padding-top: var(--safe-area-inset-top);
+    padding-bottom: var(--safe-area-inset-bottom);
+  }
+  .p-safe {
+    padding: var(--safe-area-inset-top) var(--safe-area-inset-right) var(--safe-area-inset-bottom)
+      var(--safe-area-inset-left);
+  }
+  /* Example: fixed bottom chrome — tune 0.75rem to match your bar height */
+  .pb-fixed-ui {
+    padding-bottom: calc(0.75rem + var(--safe-area-inset-bottom));
   }
 }
 

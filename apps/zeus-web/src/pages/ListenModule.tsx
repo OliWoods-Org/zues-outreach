@@ -3,7 +3,7 @@ import { Ear, Gauge } from 'lucide-react';
 
 export function ListenModule() {
   return (
-    <div className="max-w-4xl space-y-8">
+    <div className="w-full max-w-4xl min-w-0 space-y-8">
       <div>
         <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-teal-400/90">Growth OS · Listen</p>
         <h1 className="text-2xl md:text-3xl font-semibold text-white tracking-tight mt-1">Listen</h1>

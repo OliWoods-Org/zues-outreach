@@ -8,7 +8,7 @@ const creators = [
 
 export function InfluencersModule() {
   return (
-    <div className="max-w-5xl space-y-8">
+    <div className="w-full max-w-5xl min-w-0 space-y-8">
       <div>
         <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-teal-400/90">Growth OS</p>
         <h1 className="text-2xl md:text-3xl font-semibold text-white tracking-tight mt-1">Influencers & UGC</h1>

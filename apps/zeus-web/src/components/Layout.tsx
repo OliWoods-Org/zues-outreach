@@ -325,9 +325,11 @@ export function Layout({ children }: { children: React.ReactNode }) {
           </div>
         </aside>
 
-        <div className="relative z-10 flex-1 flex flex-col min-h-screen min-w-0 lg:ml-0 bg-gradient-to-br from-zinc-950/80 via-[#06080c]/50 to-teal-950/15 lg:rounded-tl-3xl lg:border-l lg:border-t border-white/[0.06]">
+        <div className="relative z-10 flex-1 flex flex-col min-h-screen min-w-0 pt-safe lg:ml-0 bg-gradient-to-br from-zinc-950/80 via-[#06080c]/50 to-teal-950/15 lg:rounded-tl-3xl lg:border-l lg:border-t border-white/[0.06]">
           <AppHeader pageTitle={pageTitle} onMenuClick={() => setMobileNavOpen(true)} />
-          <main className="flex-1 px-4 md:px-8 py-6 md:py-8 overflow-y-auto">{children}</main>
+          <main className="flex-1 px-4 sm:px-6 md:px-8 pt-6 md:pt-8 pb-[calc(1.5rem+var(--safe-area-inset-bottom))] md:pb-[calc(2rem+var(--safe-area-inset-bottom))] overflow-y-auto">
+            {children}
+          </main>
         </div>
       </div>
     </>

@@ -30,17 +30,17 @@ function ConnectRateAreaChart() {
   const delta = last - prev;
 
   return (
-    <div className="zeus-surface p-4 md:p-5 flex flex-col min-h-[200px]">
-      <div className="flex items-start justify-between gap-2 mb-1">
-        <div>
+    <div className="zeus-surface p-4 md:p-5 flex flex-col min-h-[180px] sm:min-h-[200px] min-w-0">
+      <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between mb-1">
+        <div className="min-w-0">
           <p className="text-[10px] uppercase tracking-[0.14em] text-teal-500/80">Connect rate</p>
-          <p className="text-2xl font-semibold text-white tabular-nums mt-0.5">
+          <p className="text-xl sm:text-2xl font-semibold text-white tabular-nums mt-0.5">
             {last.toFixed(1)}
             <span className="text-sm font-medium text-zinc-500 ml-1">%</span>
           </p>
         </div>
         <span
-          className={`text-[11px] font-medium tabular-nums px-2 py-0.5 rounded-md ${
+          className={`text-[11px] font-medium tabular-nums px-2 py-1 rounded-md shrink-0 self-start sm:self-auto ${
             delta >= 0 ? 'bg-emerald-500/15 text-emerald-400' : 'bg-rose-500/15 text-rose-400'
           }`}
         >
@@ -49,8 +49,8 @@ function ConnectRateAreaChart() {
         </span>
       </div>
       <p className="text-[11px] text-zinc-600 mb-3">Rolling 7-day outbound dial → conversation quality</p>
-      <div className="flex-1 min-h-[112px]">
-        <svg viewBox={`0 0 ${CHART_W} ${CHART_H}`} className="w-full h-[112px] overflow-visible" preserveAspectRatio="xMidYMid meet">
+      <div className="flex-1 min-h-[96px] sm:min-h-[112px] min-w-0">
+        <svg viewBox={`0 0 ${CHART_W} ${CHART_H}`} className="w-full h-[88px] sm:h-[112px] overflow-visible" preserveAspectRatio="xMidYMid meet">
           <defs>
             <linearGradient id="mc-area-fill" x1="0" y1="0" x2="0" y2="1">
               <stop offset="0%" stopColor="rgba(45, 212, 191, 0.35)" />
@@ -93,23 +93,23 @@ function MeetingsBarChart() {
   const gap = (320 - values.length * barW) / (values.length + 1);
 
   return (
-    <div className="zeus-surface p-4 md:p-5 flex flex-col min-h-[200px]">
-      <div className="flex items-start justify-between gap-2 mb-1">
-        <div>
+    <div className="zeus-surface p-4 md:p-5 flex flex-col min-h-[180px] sm:min-h-[200px] min-w-0">
+      <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between mb-1">
+        <div className="min-w-0">
           <p className="text-[10px] uppercase tracking-[0.14em] text-teal-500/80">Meetings booked</p>
-          <p className="text-2xl font-semibold text-white tabular-nums mt-0.5">
+          <p className="text-xl sm:text-2xl font-semibold text-white tabular-nums mt-0.5">
             {values.reduce((a, b) => a + b, 0)}
             <span className="text-sm font-medium text-zinc-500 ml-1">this week</span>
           </p>
         </div>
-        <span className="inline-flex items-center gap-1 text-[11px] font-medium text-brand-gold bg-brand-gold/10 px-2 py-0.5 rounded-md">
-          <TrendingUp className="w-3 h-3" />
+        <span className="inline-flex items-center gap-1 text-[11px] font-medium text-brand-gold bg-brand-gold/10 px-2 py-1 rounded-md shrink-0 self-start">
+          <TrendingUp className="w-3 h-3 shrink-0" />
           +18% WoW
         </span>
       </div>
       <p className="text-[11px] text-zinc-600 mb-3">Qualified meetings attributed to voice outreach</p>
-      <div className="flex-1 flex items-end min-h-[120px]">
-        <svg viewBox="0 0 320 120" className="w-full h-[120px]" preserveAspectRatio="xMidYMid meet">
+      <div className="flex-1 flex items-end min-h-[104px] sm:min-h-[120px] min-w-0 overflow-x-auto sm:overflow-x-visible [-webkit-overflow-scrolling:touch]">
+        <svg viewBox="0 0 320 120" className="w-full min-w-[260px] sm:min-w-0 h-[100px] sm:h-[120px]" preserveAspectRatio="xMidYMid meet">
           <defs>
             <linearGradient id="mc-bar-fill" x1="0" y1="0" x2="0" y2="1">
               <stop offset="0%" stopColor="rgba(212, 168, 85, 0.95)" />
@@ -145,16 +145,16 @@ function ConversionFunnelChart() {
   ];
 
   return (
-    <div className="zeus-surface p-4 md:p-5 flex flex-col min-h-[200px]">
-      <div className="flex items-start justify-between gap-2 mb-1">
-        <div>
+    <div className="zeus-surface p-4 md:p-5 flex flex-col min-h-[180px] sm:min-h-[200px] min-w-0">
+      <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between mb-1">
+        <div className="min-w-0">
           <p className="text-[10px] uppercase tracking-[0.14em] text-teal-500/75">Conversion funnel</p>
-          <p className="text-2xl font-semibold text-white tabular-nums mt-0.5">
+          <p className="text-xl sm:text-2xl font-semibold text-white tabular-nums mt-0.5">
             {meetingRate}%
             <span className="text-sm font-medium text-zinc-500 ml-1">meet / connect</span>
           </p>
         </div>
-        <span className="text-[11px] font-medium text-zinc-400 tabular-nums">Win {pipelineStats.winRate}%</span>
+        <span className="text-[11px] font-medium text-zinc-400 tabular-nums shrink-0">Win {pipelineStats.winRate}%</span>
       </div>
       <p className="text-[11px] text-zinc-600 mb-4">Stage-throughput · workspace rolling window</p>
       <div className="space-y-2.5 flex-1">
@@ -184,24 +184,24 @@ function ConversionFunnelChart() {
 
 export function MissionKpiCharts() {
   return (
-    <section className="space-y-3" aria-label="Key performance indicators">
-      <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-2">
-        <div>
+    <section className="space-y-3 min-w-0" aria-label="Key performance indicators">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between sm:gap-2">
+        <div className="min-w-0">
           <p className="text-[10px] uppercase tracking-[0.18em] text-brand-blue">Execution lane</p>
-          <h2 className="text-lg font-semibold text-white tracking-tight">Voice conversion & dial throughput</h2>
+          <h2 className="text-base sm:text-lg font-semibold text-white tracking-tight">Voice conversion & dial throughput</h2>
           <p className="text-[11px] text-zinc-600 mt-1 max-w-lg">
             Dial metrics stay on teal surge surfaces — separate from Growth OS pulse above.
           </p>
         </div>
         <Link
           to="/analytics"
-          className="inline-flex items-center gap-1 text-xs font-medium text-brand-blue hover:text-sky-300 transition-colors"
+          className="inline-flex items-center justify-center gap-1 min-h-10 shrink-0 text-xs font-medium text-brand-blue hover:text-sky-300 transition-colors px-2 -mx-2 rounded-lg sm:min-h-0 sm:px-0 sm:mx-0"
         >
           View analytics
-          <ArrowUpRight className="w-3.5 h-3.5" />
+          <ArrowUpRight className="w-3.5 h-3.5 shrink-0" />
         </Link>
       </div>
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 min-w-0">
         <ConnectRateAreaChart />
         <MeetingsBarChart />
         <ConversionFunnelChart />

@@ -9,8 +9,8 @@ const suggestions = [
 
 export function BriefingsBrain() {
   return (
-    <div className="max-w-5xl space-y-8">
-      <div className="rounded-2xl border border-violet-500/20 bg-gradient-to-br from-violet-950/35 to-transparent p-6 md:p-8">
+    <div className="w-full max-w-5xl min-w-0 space-y-8">
+      <div className="rounded-2xl border border-violet-500/20 bg-gradient-to-br from-violet-950/35 to-transparent px-4 sm:px-6 py-6 md:px-8 md:py-8">
         <div className="flex items-start gap-3 mb-4">
           <Sun className="w-6 h-6 text-amber-400 flex-shrink-0" />
           <div>

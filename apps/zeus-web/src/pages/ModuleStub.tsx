@@ -12,8 +12,8 @@ export function ModuleStub({
   description: string;
 }) {
   return (
-    <div className="max-w-4xl space-y-6">
-      <div className="relative overflow-hidden rounded-2xl border border-violet-500/20 zeus-mesh-hero px-6 py-7 md:px-8">
+    <div className="w-full max-w-4xl min-w-0 mx-auto space-y-6">
+      <div className="relative overflow-hidden rounded-2xl border border-violet-500/20 zeus-mesh-hero px-4 py-6 sm:px-6 md:px-8 md:py-7">
         <div className="pointer-events-none absolute right-0 top-0 h-32 w-32 opacity-30 bg-[radial-gradient(circle_at_center,rgba(34,211,238,0.4),transparent_70%)]" />
         <div className="relative flex items-start gap-3">
           <span className="flex h-10 w-10 items-center justify-center rounded-xl border border-teal-400/30 bg-teal-500/10 text-teal-200">
@@ -44,7 +44,7 @@ export function ModuleStub({
         ))}
       </div>
 
-      <div className="rounded-2xl border border-teal-500/15 bg-teal-950/[0.15] p-6 md:p-7">
+      <div className="rounded-2xl border border-teal-500/15 bg-teal-950/[0.15] px-4 py-5 sm:px-6 md:p-7">
         <div className="flex items-center gap-2 text-teal-300/90 mb-3">
           <PlugZap className="w-4 h-4" />
           <span className="text-xs font-semibold uppercase tracking-wider">Integration stub</span>

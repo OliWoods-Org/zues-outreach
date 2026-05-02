@@ -9,7 +9,7 @@ const steps = [
 
 export function BrandWizard() {
   return (
-    <div className="max-w-3xl space-y-8">
+    <div className="w-full max-w-3xl min-w-0 space-y-8">
       <div>
         <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-amber-400/90">Brand</p>
         <h1 className="text-2xl font-semibold text-white tracking-tight mt-1">Brand wizard</h1>
