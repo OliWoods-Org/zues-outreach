@@ -1,0 +1,15 @@
+# Zeus Web — Vite SPA (apps/zeus-web)
+# Build from repo root in Netlify UI, or use CLI from apps/zeus-web after `npm ci && npm run build`.
+
+[build]
+  base = "apps/zeus-web"
+  command = "npm ci && npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "20"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
