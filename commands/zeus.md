@@ -16,6 +16,10 @@ Use this slash command as a **navigation hub**. Implementation lives across repo
 | Doc | What it is |
 |-----|------------|
 | [`docs/CLAUDE_TASKS.md`](../docs/CLAUDE_TASKS.md) | **Task list for Claude** — what to do next, by track |
+| [`docs/BUILD_PARALLEL_AGENTS.md`](../docs/BUILD_PARALLEL_AGENTS.md) | 5 build streams (TNT base, listen→Airtable, Brain, SEO, pricing) |
+| [`docs/TNT_MISSION_CONTROL_AIRTABLE_BASE.md`](../docs/TNT_MISSION_CONTROL_AIRTABLE_BASE.md) | TNT Airtable telemetry spec |
+| [`docs/TNT_LOCAL_PREVIEW.md`](../docs/TNT_LOCAL_PREVIEW.md) | TNT FastAPI `/docs` local run |
+| [`docs/SEO_GEO_MODULE.md`](../docs/SEO_GEO_MODULE.md) | SEO / GEO + backlinks plan |
 | [`docs/ZEUS_FINAL_BUILD_PLAN.md`](../docs/ZEUS_FINAL_BUILD_PLAN.md) | **Master execution plan** — phased gates, tracks, acceptance criteria |
 | [`docs/ZEUS_OUTREACH_PLAN.md`](../docs/ZEUS_OUTREACH_PLAN.md) | Portfolio bases, Listen vs responder, affiliate, Growth Brain, §18 ideas |
 | [`docs/AIRTABLE_ZEUS_SCHEMA.md`](../docs/AIRTABLE_ZEUS_SCHEMA.md) | Table/field reference for Zeus tables |
@@ -32,6 +36,7 @@ Use this slash command as a **navigation hub**. Implementation lives across repo
 | `/social-listen` | Reddit/X listening — feeds **intelligence** track (`TrendPosts` via future worker; see build plan Phase 5) |
 | `/crm-sync` | HubSpot |
 | `/airtable-sync` | Upsert leads to Airtable — **Email** merge key |
+| `/listen-to-airtable` | Doc: listen → **TrendPosts** via `trendposts_append.py` |
 
 ## Build tracks (where work happens)
 

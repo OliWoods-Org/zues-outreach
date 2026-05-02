@@ -4,6 +4,8 @@ Use **one base per commercial product line** (see [`ZEUS_OUTREACH_PLAN.md`](ZEUS
 
 **Existing Elevar lead schema:** [`ELEVAR_OUTREACH_AIRTABLE.md`](ELEVAR_OUTREACH_AIRTABLE.md).
 
+**TNT / Mission Control telemetry (optional base):** [`TNT_MISSION_CONTROL_AIRTABLE_BASE.md`](TNT_MISSION_CONTROL_AIRTABLE_BASE.md).
+
 ---
 
 ## Core hierarchy
@@ -55,7 +57,8 @@ Follow **`Leads`** pattern from Elevar doc: **Email** as upsert key; link **Prod
 
 | Field | Type | Notes |
 |-------|------|--------|
-| External post ID | Single line | **Dedupe key** with platform |
+| **Dedupe Key** | Single line | **Upsert merge field** for [`scripts/trendposts_append.py`](../scripts/trendposts_append.py): `{platform}\|{external_post_id}` |
+| External post ID | Single line | Platform-native id |
 | Platform | Single select | |
 | Author handle | Single line | |
 | Post URL | URL | |

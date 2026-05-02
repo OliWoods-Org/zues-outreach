@@ -6,6 +6,8 @@
 # Pilot outputs (may contain PII)
 data/*.csv
 !data/.gitkeep
+!data/sample-leads-dryrun.csv
+!data/sample-trendposts.csv
 
 # OS / IDE
 .DS_Store

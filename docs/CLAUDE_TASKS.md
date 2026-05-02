@@ -10,7 +10,7 @@ Use this as a **work queue**. Order matters within each track; parallel tracks a
 
 - [ ] **0.1** Record decision: MAMA MCP Marketplace = separate base vs **Track** field in MAMA Outreach → update [`ZEUS_OUTREACH_PLAN.md`](ZEUS_OUTREACH_PLAN.md) or Notion.
 - [ ] **0.2** Resolve GoodBot vs 411 → one narrative; align outreach base naming.
-- [ ] **0.3** Find **MAMA X autoposter** — document repo path, auth, API usage in [`ZEUS_FINAL_BUILD_PLAN.md`](ZEUS_FINAL_BUILD_PLAN.md) appendix or new `docs/MAMA_AUTOPOSTER.md` (or state “not found — greenfield”).
+- [x] **0.3** Autoposter placeholder: [`MAMA_AUTOPOSTER.md`](MAMA_AUTOPOSTER.md) (greenfield / search other repos).
 - [ ] **0.4** DOM CRE: internal-only vs partner motion → outreach base yes/no.
 - [ ] **0.5** Create **Mission Control** repo (fork TNT); pick deployment (Vercel/Railway/etc.) + staging URL.
 
@@ -32,7 +32,8 @@ Use this as a **work queue**. Order matters within each track; parallel tracks a
 
 - [ ] **B.1** In **one pilot base** (e.g. Elevar Outreach): add **Companies / Products / Projects** minimally linked.
 - [ ] **B.2** Create **BrandProfiles** per [`AIRTABLE_ZEUS_SCHEMA.md`](AIRTABLE_ZEUS_SCHEMA.md); link to Product.
-- [ ] **B.3** Stub empty tables: **TrendPosts**, **ListenKeywords**, **PublishQueue**, **PublishLog**, **OptimizationSuggestions**, **AgentRuns** (correct field types).
+- [ ] **B.3** Stub empty tables: **TrendPosts**, **ListenKeywords**, **PublishQueue**, **PublishLog**, **OptimizationSuggestions**, **AgentRuns** (correct field types).  
+  - **TNT ops tables (optional second base):** [`TNT_MISSION_CONTROL_AIRTABLE_BASE.md`](TNT_MISSION_CONTROL_AIRTABLE_BASE.md) — `PPCAgentRuns`, `MissionControlHealth`, etc.
 - [ ] **B.4** Create views: new leads today, TrendPosts last 7d, PublishQueue approved+scheduled, OptimizationSuggestions proposed-only.
 - [ ] **B.5** New PAT **scoped to that base only**; document in password manager — never commit.
 
@@ -41,10 +42,10 @@ Use this as a **work queue**. Order matters within each track; parallel tracks a
 ## Track C — This repo (`zues-outreach` execution layer)
 
 - [ ] **C.1** Smoke-test all slash commands after plugin rename: `/find-leads`, `/airtable-sync`, `/social-listen`, etc.
-- [ ] **C.2** Add **`scripts/trendposts_append.py`** (or extend existing): read structured JSON/CSV from listen output → POST to Airtable **TrendPosts** with dedupe key `(platform, external_post_id)` — env: `AIRTABLE_TABLE_TRENDPOSTS`, field map optional.
-- [ ] **C.3** Document **`commands/listen-to-airtable.md`** (or extend `social-listen.md`): pipeline from keywords → daily cap → TrendPosts table.
-- [ ] **C.4** Align **`airtable-push-leads.py`** with any new Elevar fields — regression `--dry-run` on sample CSV.
-- [ ] **C.5** Optional: **`agents/growth-brain.md`** stub describing inputs (TrendPosts, MetricsSnapshots) and output (`OptimizationSuggestions` rows) for human approval — no automation required yet.
+- [x] **C.2** **`scripts/trendposts_append.py`** — CSV → **TrendPosts** upsert on **Dedupe Key**; env `AIRTABLE_TABLE_TRENDPOSTS`, `AIRTABLE_MERGE_FIELD_TREND`.
+- [x] **C.3** **`commands/listen-to-airtable.md`** — pipeline doc.
+- [x] **C.4** Sample CSV regression: `data/sample-leads-dryrun.csv` + `--dry-run` (no schema change required).
+- [x] **C.5** **`agents/growth-brain.md`** — inputs/outputs for `OptimizationSuggestions`.
 
 ---
 
@@ -84,8 +85,8 @@ Use this as a **work queue**. Order matters within each track; parallel tracks a
 
 ## Track H — Polish & GTM
 
-- [ ] **H.1** Pricing page draft aligned with SKUs in [`ZEUS_FINAL_BUILD_PLAN.md`](ZEUS_FINAL_BUILD_PLAN.md) §5.
-- [ ] **H.2** Pick **3–5** items from [`ZEUS_OUTREACH_PLAN.md`](ZEUS_OUTREACH_PLAN.md) §18 for v2 roadmap.
+- [x] **H.1** Draft: [`PRICING_SKUS.md`](PRICING_SKUS.md).
+- [x] **H.2** Picks: [`ROADMAP_V2_PICKS.md`](ROADMAP_V2_PICKS.md).
 - [ ] **H.3** Record Loom or screenshots: Elevar path `/find-leads` → `/airtable-sync` → Airtable row.
 
 ---

@@ -1,0 +1,3 @@
+email,first_name,last_name,company,title,segment,source
+dryrun.clinic@example.com,Alex,Smith,Example Wellness Tx,Medical Director,Clinic,zeus_dry_run
+dryrun.pharm@example.com,Jordan,Lee,Example Compounding,Owner,Pharmacy,zeus_dry_run

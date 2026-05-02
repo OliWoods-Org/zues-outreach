@@ -9,10 +9,14 @@
 | Document | Purpose |
 |----------|---------|
 | [`docs/CLAUDE_TASKS.md`](docs/CLAUDE_TASKS.md) | **Claude Code checklist** — tasks by track to finish Zeus |
+| [`docs/TNT_MISSION_CONTROL_AIRTABLE_BASE.md`](docs/TNT_MISSION_CONTROL_AIRTABLE_BASE.md) | **TNT / Mission Control** Airtable telemetry + link to FastAPI preview |
+| [`docs/TNT_LOCAL_PREVIEW.md`](docs/TNT_LOCAL_PREVIEW.md) | Run **TNT** locally (`/docs` Swagger) |
+| [`docs/BUILD_PARALLEL_AGENTS.md`](docs/BUILD_PARALLEL_AGENTS.md) | What the 5 parallel build streams shipped in-repo |
 | [`docs/ZEUS_FINAL_BUILD_PLAN.md`](docs/ZEUS_FINAL_BUILD_PLAN.md) | **Phased execution** — Mission Control, Airtable, workers, gates, acceptance criteria |
 | [`docs/ZEUS_OUTREACH_PLAN.md`](docs/ZEUS_OUTREACH_PLAN.md) | Portfolio bases, Listen vs responder, affiliate, Growth Brain, v2 ideas |
 | [`docs/AIRTABLE_ZEUS_SCHEMA.md`](docs/AIRTABLE_ZEUS_SCHEMA.md) | Zeus table/field reference (Brand, Publish, Listen, Brain, Affiliate) |
 | [`docs/ELEVAR_OUTREACH_AIRTABLE.md`](docs/ELEVAR_OUTREACH_AIRTABLE.md) | Elevar `Leads` table + env; **Apollo pilot** (`scripts/elevar_apollo_pilot.py`, §7) |
+| [`docs/LOW_BUDGET_LEAD_STACK.md`](docs/LOW_BUDGET_LEAD_STACK.md) | RapidAPI vs Apify keys, free vs paid scraping, cost-conscious stack |
 
 ## Features (slash commands)
 
