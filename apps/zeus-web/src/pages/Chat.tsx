@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { Send } from 'lucide-react';
+import { Send, X } from 'lucide-react';
 import { useSearchParams } from 'react-router-dom';
 import { useMode } from '../App';
 import { growthCoachPrompts } from '../data/growthCoachPrompts';
@@ -17,29 +17,25 @@ const guardSuggestions = [
   'Generate a report of blocked numbers',
 ];
 
+const SALES_WELCOME =
+  "Hey — I'm your Growth coach (outbound, email, objections, pipeline). Defense assistant is separate: switch the Sales / Guard toggle for spam defense and personas.";
+const GUARD_WELCOME =
+  "I'm your Defense assistant — Guard desk for whitelist, personas, and intercepted calls. For sales copy and pipeline help, switch back to Sales (Growth coach).";
+
 export function Chat() {
-  const { mode } = useMode();
+  const { mode, setMode } = useMode();
   const isSales = mode === 'sales';
   const [searchParams, setSearchParams] = useSearchParams();
   const seededFromUrl = useRef(false);
-
-  const salesWelcome =
-    "Hey — I'm your Growth coach (outbound, email, objections, pipeline). Defense assistant is separate: switch the Sales / Guard toggle for spam defense and personas.";
-  const guardWelcome =
-    "I'm your Defense assistant — Guard desk for whitelist, personas, and intercepted calls. For sales copy and pipeline help, switch back to Sales (Growth coach).";
+  const skipModeReset = useRef(false);
+  const skipInitialModeReset = useRef(true);
 
   const [messages, setMessages] = useState<Message[]>([
-    {
-      id: 1,
-      role: 'assistant',
-      content: isSales ? salesWelcome : guardWelcome,
-    },
+    { id: 1, role: 'assistant', content: isSales ? SALES_WELCOME : GUARD_WELCOME },
   ]);
   const [input, setInput] = useState('');
+  const [assistBanner, setAssistBanner] = useState<string | null>(null);
 
-  const suggestions = isSales
-    ? growthCoachPrompts.map(p => p.prompt)
-    : guardSuggestions;
   const accentColor = isSales ? '#a78bfa' : '#fb7185';
 
   const handleSend = useCallback(
@@ -62,6 +58,21 @@ export function Chat() {
     [input, isSales]
   );
 
+  /** Reset thread when Sales/Guard changes (sidebar or “Wrong assistant?”); skip first paint (initializer already matches). */
+  useEffect(() => {
+    if (skipInitialModeReset.current) {
+      skipInitialModeReset.current = false;
+      return;
+    }
+    if (skipModeReset.current) {
+      skipModeReset.current = false;
+      return;
+    }
+    setMessages([{ id: Date.now(), role: 'assistant', content: isSales ? SALES_WELCOME : GUARD_WELCOME }]);
+    setInput('');
+    seededFromUrl.current = false;
+  }, [mode, isSales]);
+
   useEffect(() => {
     if (!isSales || seededFromUrl.current) return;
     const raw = searchParams.get('q');
@@ -76,12 +87,28 @@ export function Chat() {
       },
       { replace: true }
     );
+    skipModeReset.current = true;
+    setMessages([{ id: Date.now(), role: 'assistant', content: SALES_WELCOME }]);
     queueMicrotask(() => handleSend(decoded));
   }, [isSales, searchParams, setSearchParams, handleSend]);
 
+  const switchToDefenseAssistant = () => {
+    setAssistBanner(
+      'Switched to Guard. You are now on the Defense assistant (whitelist, personas, intercepted-call stats). The Sales / Guard toggle in the sidebar matches this.'
+    );
+    setMode('guard');
+  };
+
+  const switchToGrowthCoach = () => {
+    setAssistBanner(
+      'Switched to Sales. You are now on the Growth coach (outbound copy, objections, pipeline). Use Guard when you need spam defense instead.'
+    );
+    setMode('sales');
+  };
+
   return (
     <div className="flex flex-col min-h-[min(70vh,720px)] max-w-4xl w-full min-w-0">
-      <div className="mb-6">
+      <div className="mb-5">
         <p className="text-[11px] uppercase tracking-[0.18em] text-[#555] mb-2">
           {isSales ? 'Growth · outbound' : 'Guard · defense'}
         </p>
@@ -93,6 +120,57 @@ export function Chat() {
             ? 'Same chat surface as Mission Control — coaching for sequences, objections, and pipeline.'
             : 'Guard-only workspace: stats, whitelist, personas — not outbound sales coaching.'}
         </p>
+
+        <div className="mt-4 rounded-xl border border-white/[0.07] bg-[rgba(8,10,14,0.65)] px-3 py-3">
+          <p className="text-[10px] uppercase tracking-[0.14em] text-zinc-600 mb-2">Wrong assistant?</p>
+          <p className="text-xs text-zinc-500 leading-relaxed mb-3">
+            {isSales ? (
+              <>
+                Need spam defense, whitelist, or persona stats instead? You want{' '}
+                <span className="text-zinc-400">Defense assistant</span> in Guard mode — same page, different brains.
+              </>
+            ) : (
+              <>
+                Need cold email, objections, or pipeline help instead? You want{' '}
+                <span className="text-zinc-400">Growth coach</span> in Sales mode.
+              </>
+            )}
+          </p>
+          {isSales ? (
+            <button
+              type="button"
+              onClick={switchToDefenseAssistant}
+              className="text-left text-xs font-medium text-rose-300/95 hover:text-rose-200 underline decoration-rose-400/40 underline-offset-2 hover:decoration-rose-300"
+            >
+              Switch to Defense assistant (Guard mode) →
+            </button>
+          ) : (
+            <button
+              type="button"
+              onClick={switchToGrowthCoach}
+              className="text-left text-xs font-medium text-teal-300/95 hover:text-teal-200 underline decoration-teal-400/35 underline-offset-2 hover:decoration-teal-300"
+            >
+              Switch to Growth coach (Sales mode) →
+            </button>
+          )}
+        </div>
+
+        {assistBanner && (
+          <div
+            className="mt-3 flex items-start gap-2 rounded-lg border border-teal-500/20 bg-teal-950/30 px-3 py-2.5 text-xs text-teal-100/95"
+            role="status"
+          >
+            <span className="flex-1 leading-relaxed">{assistBanner}</span>
+            <button
+              type="button"
+              onClick={() => setAssistBanner(null)}
+              className="shrink-0 p-1 rounded-md text-teal-400/80 hover:text-white hover:bg-white/10"
+              aria-label="Dismiss notice"
+            >
+              <X className="w-3.5 h-3.5" />
+            </button>
+          </div>
+        )}
       </div>
 
       {/* Messages */}

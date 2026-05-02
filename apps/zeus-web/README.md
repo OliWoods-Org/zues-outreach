@@ -6,6 +6,8 @@ Strategy IA: [`docs/ZEUS_MISSION_CONTROL_IA.md`](../../docs/ZEUS_MISSION_CONTROL
 
 **Mobile:** [`docs/ZEUS_MOBILE_UX_PLAN.md`](docs/ZEUS_MOBILE_UX_PLAN.md) · [`docs/ZEUS_MOBILE_VISUAL_AUDIT.md`](docs/ZEUS_MOBILE_VISUAL_AUDIT.md) — safe-area utilities in `src/index.css`, `xs:475px` in `tailwind.config.js`.
 
+**Assistants:** Growth coach vs Defense assistant · [`docs/CHAT_AND_ASSISTANT_BACKLOG.md`](docs/CHAT_AND_ASSISTANT_BACKLOG.md) (chat page has “Wrong assistant?” mode switch).
+
 ## Run locally
 
 ```bash
