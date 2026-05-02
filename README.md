@@ -11,6 +11,8 @@
 | [`docs/CLAUDE_TASKS.md`](docs/CLAUDE_TASKS.md) | **Claude Code checklist** — tasks by track to finish Zeus |
 | [`docs/TNT_MISSION_CONTROL_AIRTABLE_BASE.md`](docs/TNT_MISSION_CONTROL_AIRTABLE_BASE.md) | **TNT / Mission Control** Airtable telemetry + link to FastAPI preview |
 | [`docs/TNT_LOCAL_PREVIEW.md`](docs/TNT_LOCAL_PREVIEW.md) | Run **TNT** locally — **Python 3.12+**, FastAPI `/docs` |
+| [`apps/zeus-web/README.md`](apps/zeus-web/README.md) | **Zeus Web** — Vite app (Siren-style shell, Zeus branding); run `npm run dev` |
+| [`snapshots/siren-ui-reference/README.md`](snapshots/siren-ui-reference/README.md) | **Frozen Siren UI snapshot** — restore the visual system if the fork diverges |
 | [`docs/SIREN_WEB_UI_FOR_ZEUS.md`](docs/SIREN_WEB_UI_FOR_ZEUS.md) | **Siren** recent UI commits + routes to reuse as Zeus dashboard shell |
 | [`docs/BUILD_PARALLEL_AGENTS.md`](docs/BUILD_PARALLEL_AGENTS.md) | What the 5 parallel build streams shipped in-repo |
 | [`docs/ZEUS_FINAL_BUILD_PLAN.md`](docs/ZEUS_FINAL_BUILD_PLAN.md) | **Phased execution** — Mission Control, Airtable, workers, gates, acceptance criteria |

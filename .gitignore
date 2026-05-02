@@ -9,6 +9,10 @@ data/*.csv
 !data/sample-leads-dryrun.csv
 !data/sample-trendposts.csv
 
+# Node (e.g. apps/zeus-web)
+node_modules/
+dist/
+
 # OS / IDE
 .DS_Store
 .idea/
