@@ -26,6 +26,14 @@ export default {
           gold: '#D4A855',
           'gold-deep': '#C9A961',
         },
+        /** Zeus-only accent lane (vs Siren blue-primary chrome) */
+        zeus: {
+          surge: '#22d3ee',
+          teal: '#14b8a6',
+          aurora: '#a78bfa',
+          ember: '#fbbf24',
+          mesh: '#0c1220',
+        },
         void: '#050507',
       },
       spacing: {

@@ -30,10 +30,10 @@ function ConnectRateAreaChart() {
   const delta = last - prev;
 
   return (
-    <div className="siren-card glass-panel p-4 md:p-5 flex flex-col min-h-[200px]">
+    <div className="zeus-surface p-4 md:p-5 flex flex-col min-h-[200px]">
       <div className="flex items-start justify-between gap-2 mb-1">
         <div>
-          <p className="text-[10px] uppercase tracking-[0.14em] text-zinc-500">Connect rate</p>
+          <p className="text-[10px] uppercase tracking-[0.14em] text-teal-500/80">Connect rate</p>
           <p className="text-2xl font-semibold text-white tabular-nums mt-0.5">
             {last.toFixed(1)}
             <span className="text-sm font-medium text-zinc-500 ml-1">%</span>
@@ -53,12 +53,12 @@ function ConnectRateAreaChart() {
         <svg viewBox={`0 0 ${CHART_W} ${CHART_H}`} className="w-full h-[112px] overflow-visible" preserveAspectRatio="xMidYMid meet">
           <defs>
             <linearGradient id="mc-area-fill" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="rgba(79, 142, 247, 0.35)" />
-              <stop offset="100%" stopColor="rgba(79, 142, 247, 0)" />
+              <stop offset="0%" stopColor="rgba(45, 212, 191, 0.35)" />
+              <stop offset="100%" stopColor="rgba(45, 212, 191, 0)" />
             </linearGradient>
             <linearGradient id="mc-line-stroke" x1="0" y1="0" x2="1" y2="0">
-              <stop offset="0%" stopColor="#3b7bf5" />
-              <stop offset="55%" stopColor="#4f8ef7" />
+              <stop offset="0%" stopColor="#14b8a6" />
+              <stop offset="45%" stopColor="#22d3ee" />
               <stop offset="100%" stopColor="#d4a855" />
             </linearGradient>
           </defs>
@@ -71,7 +71,7 @@ function ConnectRateAreaChart() {
               cy={p.y}
               r={i === points.length - 1 ? 4 : 2.5}
               fill="#0a0a0c"
-              stroke="#4f8ef7"
+              stroke="#2dd4bf"
               strokeWidth={i === points.length - 1 ? 2 : 1.5}
             />
           ))}
@@ -93,10 +93,10 @@ function MeetingsBarChart() {
   const gap = (320 - values.length * barW) / (values.length + 1);
 
   return (
-    <div className="siren-card glass-panel p-4 md:p-5 flex flex-col min-h-[200px]">
+    <div className="zeus-surface p-4 md:p-5 flex flex-col min-h-[200px]">
       <div className="flex items-start justify-between gap-2 mb-1">
         <div>
-          <p className="text-[10px] uppercase tracking-[0.14em] text-zinc-500">Meetings booked</p>
+          <p className="text-[10px] uppercase tracking-[0.14em] text-teal-500/80">Meetings booked</p>
           <p className="text-2xl font-semibold text-white tabular-nums mt-0.5">
             {values.reduce((a, b) => a + b, 0)}
             <span className="text-sm font-medium text-zinc-500 ml-1">this week</span>
@@ -145,10 +145,10 @@ function ConversionFunnelChart() {
   ];
 
   return (
-    <div className="siren-card glass-panel p-4 md:p-5 flex flex-col min-h-[200px]">
+    <div className="zeus-surface p-4 md:p-5 flex flex-col min-h-[200px]">
       <div className="flex items-start justify-between gap-2 mb-1">
         <div>
-          <p className="text-[10px] uppercase tracking-[0.14em] text-zinc-500">Conversion funnel</p>
+          <p className="text-[10px] uppercase tracking-[0.14em] text-teal-500/75">Conversion funnel</p>
           <p className="text-2xl font-semibold text-white tabular-nums mt-0.5">
             {meetingRate}%
             <span className="text-sm font-medium text-zinc-500 ml-1">meet / connect</span>
@@ -187,8 +187,11 @@ export function MissionKpiCharts() {
     <section className="space-y-3" aria-label="Key performance indicators">
       <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-2">
         <div>
-          <p className="text-[10px] uppercase tracking-[0.18em] text-brand-blue">Performance</p>
-          <h2 className="text-lg font-semibold text-white tracking-tight">Voice conversion & pipeline</h2>
+          <p className="text-[10px] uppercase tracking-[0.18em] text-brand-blue">Execution lane</p>
+          <h2 className="text-lg font-semibold text-white tracking-tight">Voice conversion & dial throughput</h2>
+          <p className="text-[11px] text-zinc-600 mt-1 max-w-lg">
+            Dial metrics stay on teal surge surfaces — separate from Growth OS pulse above.
+          </p>
         </div>
         <Link
           to="/analytics"

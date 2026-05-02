@@ -4,7 +4,9 @@ import {
   Activity,
   ArrowRight,
   BookOpen,
+  Ear,
   Gauge,
+  LayoutGrid,
   Megaphone,
   Phone,
   Radio,
@@ -13,6 +15,9 @@ import {
   X,
 } from 'lucide-react';
 import { MissionKpiCharts } from '../components/MissionKpiCharts';
+import { ZeusGrowthPulse } from '../components/ZeusGrowthPulse';
+import { ZeusIntelFeed } from '../components/ZeusIntelFeed';
+import { ZeusMissionHero } from '../components/ZeusMissionHero';
 import { pipelineStats } from '../data/deals';
 import { MARKETPLACE_CREATOR_SHARE_PERCENT } from '../constants/marketplace';
 import {
@@ -22,19 +27,13 @@ import {
   numberHealth,
   usage,
   workspace,
+  zeusSignals,
 } from '../data/operations';
 
 const quickStats = [
   { label: 'Open pipeline', value: `$${(pipelineStats.totalValue / 1000).toFixed(0)}K`, href: '/pipeline', hint: 'Deals' },
   { label: 'Win rate', value: `${pipelineStats.winRate}%`, href: '/pipeline', hint: 'Trend' },
-  { label: 'Active deals', value: String(pipelineStats.totalDeals), href: '/pipeline', hint: 'CRM' },
-];
-
-const checklistItems = [
-  { id: 'c1', label: 'Connect CRM or webhook', done: false, href: '/settings' },
-  { id: 'c2', label: 'Assign agents to a campaign', done: true, href: '/campaigns' },
-  { id: 'c3', label: 'Pick a script from the library', done: false, href: '/scripts' },
-  { id: 'c4', label: 'Run a test call', done: false, href: '/chat' },
+  { label: 'ICP accounts', value: '128', href: '/target', hint: 'Target' },
 ];
 
 export function MissionControl() {
@@ -51,20 +50,38 @@ export function MissionControl() {
     setOnboardingDismissed(true);
   };
 
+  const checklistItems = [
+    { id: 'c1', label: 'Connect Airtable base & PAT', done: false, href: '/settings' },
+    { id: 'c2', label: 'Run Listen → tiered TrendPosts', done: false, href: '/listen' },
+    { id: 'c3', label: 'Approve first Publish row', done: false, href: '/publish' },
+    { id: 'c4', label: 'Launch outbound campaign', done: true, href: '/campaigns' },
+  ];
+
   return (
     <div className="space-y-8 max-w-7xl">
+      <ZeusMissionHero />
+
+      <ZeusGrowthPulse />
+
       <MissionKpiCharts />
 
       <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-4">
         <div>
-          <p className="text-[11px] uppercase tracking-[0.2em] text-brand-blue mb-2">Operations</p>
+          <p className="text-[11px] uppercase tracking-[0.2em] text-teal-500/80 mb-2">Command center</p>
           <h2 className="text-2xl font-semibold text-white tracking-tight">Mission Control</h2>
           <p className="text-sm text-zinc-500 mt-2 max-w-xl leading-relaxed">
-            Live snapshot for {workspace.name} — campaigns, voice usage, active calls, and script marketplace in one
-            place.
+            {workspace.name} — Growth OS telemetry plus dial execution, marketplace, and Guard in one shell (not a
+            voice-only CRM).
           </p>
         </div>
         <div className="flex flex-wrap gap-2">
+          <Link
+            to="/listen"
+            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl zeus-cta-surge text-sm font-semibold"
+          >
+            <Ear className="w-4 h-4" />
+            Listen
+          </Link>
           <Link
             to="/campaigns"
             className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg btn-primary-railway text-sm font-semibold"
@@ -77,13 +94,13 @@ export function MissionControl() {
             className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-white/[0.06] text-white text-sm font-medium hover:bg-white/[0.1] border border-white/[0.1]"
           >
             <BookOpen className="w-4 h-4" />
-            Script library
+            Scripts
           </Link>
         </div>
       </div>
 
       {!onboardingDismissed && (
-        <div className="relative siren-card p-5 border border-brand-blue/25 bg-brand-blue/[0.06]">
+        <div className="relative rounded-2xl border border-violet-500/20 bg-gradient-to-br from-violet-950/30 to-transparent p-5 shadow-[inset_0_1px_0_0_rgba(167,139,250,0.15)]">
           <button
             type="button"
             onClick={dismissOnboarding}
@@ -92,9 +109,9 @@ export function MissionControl() {
           >
             <X className="w-4 h-4" />
           </button>
-          <div className="flex items-center gap-2 text-brand-blue mb-3">
+          <div className="flex items-center gap-2 text-violet-300 mb-3">
             <Sparkles className="w-4 h-4" />
-            <span className="text-xs font-medium uppercase tracking-wider">Get to first live call</span>
+            <span className="text-xs font-medium uppercase tracking-wider">Zeus launch checklist</span>
           </div>
           <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             {checklistItems.map(item => (
@@ -104,7 +121,7 @@ export function MissionControl() {
                   className={`flex items-center gap-3 p-3 rounded-lg border transition-colors ${
                     item.done
                       ? 'border-emerald-500/25 bg-emerald-500/5 text-emerald-300/90'
-                      : 'border-[rgba(255,255,255,0.06)] hover:border-brand-blue/30 hover:bg-white/[0.02]'
+                      : 'border-[rgba(255,255,255,0.06)] hover:border-violet-400/35 hover:bg-violet-500/[0.04]'
                   }`}
                 >
                   <span
@@ -122,8 +139,8 @@ export function MissionControl() {
         </div>
       )}
 
-      {/* Usage + plan */}
-      <div className="siren-card p-5 glass-panel">
+      {/* Usage + plan — teal execution meter vs Growth pulse cards */}
+      <div className="zeus-surface p-5">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-4">
           <div className="flex items-center gap-2">
             <Gauge className="w-5 h-5 text-brand-blue" />
@@ -149,11 +166,13 @@ export function MissionControl() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        {quickStats.map(s => (
+        {quickStats.map((s, i) => (
           <Link
             key={s.label}
             to={s.href}
-            className="siren-card p-5 hover:bg-[rgba(255,255,255,0.03)] transition-colors block group glass-panel"
+            className={`siren-card p-5 hover:bg-[rgba(255,255,255,0.03)] transition-colors block group glass-panel ${
+              i === 2 ? 'zeus-tile-accent-violet' : 'zeus-tile-accent-teal'
+            }`}
           >
             <p className="text-xs text-zinc-500 mb-1">{s.label}</p>
             <p className="text-3xl font-semibold text-white group-hover:text-sky-300 transition-colors">{s.value}</p>
@@ -162,6 +181,31 @@ export function MissionControl() {
             </p>
           </Link>
         ))}
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <ZeusIntelFeed signals={zeusSignals} />
+
+        <div className="siren-card p-6 glass-panel border border-white/[0.07]">
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="text-xs text-zinc-500 tracking-wide uppercase flex items-center gap-2">
+              <Activity className="w-4 h-4 text-brand-blue" />
+              CRM activity
+            </h3>
+            <Link to="/analytics" className="text-[11px] text-brand-blue hover:text-sky-300">
+              Analytics
+            </Link>
+          </div>
+          <ul className="space-y-3">
+            {activityFeed.map(a => (
+              <li key={a.id} className="text-sm border-b border-[rgba(255,255,255,0.04)] pb-3 last:border-0">
+                <span className="text-white">{a.title}</span>
+                <span className="text-zinc-500 block text-xs mt-0.5">{a.detail}</span>
+                <span className="text-[10px] text-zinc-600">{a.time}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -195,25 +239,22 @@ export function MissionControl() {
           </Link>
         </div>
 
-        <div className="siren-card p-6 glass-panel">
-          <div className="flex items-center justify-between mb-4">
-            <h3 className="text-xs text-zinc-500 tracking-wide uppercase flex items-center gap-2">
-              <Activity className="w-4 h-4 text-brand-blue" />
-              Recent activity
-            </h3>
-            <Link to="/analytics" className="text-[11px] text-brand-blue hover:text-sky-300">
-              Analytics
+        <div className="rounded-2xl border border-teal-500/15 bg-teal-950/10 p-6 md:p-7 flex flex-col justify-center">
+          <p className="text-[10px] uppercase tracking-[0.18em] text-teal-400/80 mb-2">Execution lane</p>
+          <h3 className="text-lg font-semibold text-white mb-2">Dial studio</h3>
+          <p className="text-sm text-zinc-500 leading-relaxed mb-4">
+            Voice metrics above stay on teal “surge” surfaces. Scripts, chat coach, and carrier health round out outbound —
+            distinct from Growth OS Listen / Publish lanes.
+          </p>
+          <div className="flex flex-wrap gap-2">
+            <Link to="/chat" className="text-xs font-medium text-teal-300 hover:text-teal-200 inline-flex items-center gap-1">
+              Chat coach <ArrowRight className="w-3 h-3" />
+            </Link>
+            <span className="text-zinc-700">·</span>
+            <Link to="/pipeline" className="text-xs font-medium text-zinc-400 hover:text-white">
+              Pipeline
             </Link>
           </div>
-          <ul className="space-y-3">
-            {activityFeed.map(a => (
-              <li key={a.id} className="text-sm border-b border-[rgba(255,255,255,0.04)] pb-3 last:border-0">
-                <span className="text-white">{a.title}</span>
-                <span className="text-zinc-500 block text-xs mt-0.5">{a.detail}</span>
-                <span className="text-[10px] text-zinc-600">{a.time}</span>
-              </li>
-            ))}
-          </ul>
         </div>
       </div>
 
@@ -278,7 +319,20 @@ export function MissionControl() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <Link
+          to="/listen"
+          className="zeus-surface-muted zeus-tile-accent-teal p-6 hover:border-teal-400/30 transition-colors group block rounded-2xl"
+        >
+          <LayoutGrid className="w-8 h-8 text-teal-400/90 mb-3" />
+          <h3 className="text-sm font-medium text-white mb-2">Growth modules</h3>
+          <p className="text-sm text-zinc-500 leading-relaxed mb-4">
+            Listen, Target, Publish, Brand, Affiliates, Briefings — each lane has its own UI pattern (teal / violet / amber).
+          </p>
+          <span className="text-sm text-teal-300 group-hover:text-teal-200 inline-flex items-center gap-1">
+            Explore lanes <ArrowRight className="w-4 h-4" />
+          </span>
+        </Link>
         <Link
           to="/scripts"
           className="siren-card p-6 glass-panel hover:border-brand-blue/30 transition-colors group block"
@@ -286,7 +340,7 @@ export function MissionControl() {
           <BookOpen className="w-8 h-8 text-brand-blue/90 mb-3" />
           <h3 className="text-sm font-medium text-white mb-2">Script library</h3>
           <p className="text-sm text-zinc-500 leading-relaxed mb-4">
-            Included templates, premium benchmarks, peer marketplace — personalize variables per call.
+            Templates, benchmarks, peer marketplace — personalize variables per dial.
           </p>
           <span className="text-sm text-brand-blue group-hover:text-sky-300 inline-flex items-center gap-1">
             Browse scripts <ArrowRight className="w-4 h-4" />
@@ -299,7 +353,7 @@ export function MissionControl() {
           <Shield className="w-8 h-8 text-red-400/80 mb-3" />
           <h3 className="text-sm font-medium text-white mb-2">Guard mode</h3>
           <p className="text-sm text-zinc-500 leading-relaxed mb-4">
-            Switch sidebar to Guard for interception, personas, and scam defense dashboards.
+            Switch top bar to Guard for interception, personas, and defense dashboards.
           </p>
           <span className="text-sm text-red-400 group-hover:text-red-300 inline-flex items-center gap-1">
             Open Guard <ArrowRight className="w-4 h-4" />

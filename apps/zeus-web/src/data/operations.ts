@@ -98,6 +98,24 @@ export const activityFeed: ActivityItem[] = [
   { id: 'a4', type: 'campaign', title: 'Campaign paused', detail: 'Win-back dormant pipeline · operator', time: '3h ago' },
 ];
 
+/** Zeus-only unified intelligence lane — Listen / Brain / GEO / affiliates */
+export type ZeusSignalSource = 'listen' | 'brain' | 'geo' | 'affiliate';
+
+export interface ZeusSignal {
+  id: string;
+  source: ZeusSignalSource;
+  title: string;
+  detail: string;
+  time: string;
+}
+
+export const zeusSignals: ZeusSignal[] = [
+  { id: 'z1', source: 'listen', title: 'Trend spike · telehealth', detail: 'r/longevity + X · 3 posts above tier cap', time: '2m ago' },
+  { id: 'z2', source: 'brain', title: 'Brief draft ready', detail: 'Weekly growth summary + 2 OptimizationSuggestions', time: '18m ago' },
+  { id: 'z3', source: 'geo', title: 'Snippet gap · pricing page', detail: 'Add FAQ schema + “telehealth men” bridge phrase', time: '42m ago' },
+  { id: 'z4', source: 'affiliate', title: 'Partner link CTR +12%', detail: 'Ambassador pack B vs control — promote B', time: '3h ago' },
+];
+
 export interface NumberHealth {
   id: string;
   label: string;
@@ -140,4 +158,15 @@ export const weeklyKpis = {
   days: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'] as const,
   connectRatePct: [14.2, 15.1, 14.8, 16.4, 17.1, 15.9, 17.2],
   meetingsBooked: [11, 14, 12, 18, 22, 14, 19],
+};
+
+/** Zeus Growth OS lane — not dial-centric; feeds Mission Control pulse tiles */
+export const growthOsPulse = {
+  listenMentions24h: 47,
+  listenTierBreaches: 3,
+  publishQueued: 12,
+  publishScheduled48h: 5,
+  geoReadinessScore: 72,
+  airtableLastSyncLabel: '2m ago',
+  affiliateActiveLinks: 14,
 };
