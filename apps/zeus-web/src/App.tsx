@@ -10,6 +10,9 @@ import { MissionControl } from './pages/MissionControl';
 import { Campaigns } from './pages/Campaigns';
 import { Analytics } from './pages/Analytics';
 import { ModuleStub } from './pages/ModuleStub';
+import { PpcDashboard } from './pages/PpcDashboard';
+import { PpcAgentDetail } from './pages/PpcAgentDetail';
+import { SocialActivity } from './pages/SocialActivity';
 
 type Mode = 'sales' | 'guard';
 
@@ -102,6 +105,66 @@ function App() {
                     eyebrow="Growth Brain"
                     title="Briefings & optimizer"
                     description="Morning brief, OptimizationSuggestions, AgentRuns — approval-gated."
+                  />
+                </SalesOnly>
+              }
+            />
+            <Route
+              path="/marketplace"
+              element={
+                <SalesOnly>
+                  <ModuleStub
+                    eyebrow="Ecosystem"
+                    title="Marketplace"
+                    description="Connects to MAMA and CoFounder (CF) marketplaces — agents, skills, and listing discovery in one place. Wire OAuth, catalog sync, and install actions here (no credentials in the client)."
+                  />
+                </SalesOnly>
+              }
+            />
+            <Route
+              path="/ppc"
+              element={
+                <SalesOnly>
+                  <PpcDashboard />
+                </SalesOnly>
+              }
+            />
+            <Route
+              path="/ppc/:agentId"
+              element={
+                <SalesOnly>
+                  <PpcAgentDetail />
+                </SalesOnly>
+              }
+            />
+            <Route
+              path="/social/activity"
+              element={
+                <SalesOnly>
+                  <SocialActivity />
+                </SalesOnly>
+              }
+            />
+            <Route
+              path="/social/autopost"
+              element={
+                <SalesOnly>
+                  <ModuleStub
+                    eyebrow="Social"
+                    title="Autopost"
+                    description="Approval-gated queue for Meta, X, Threads, LinkedIn… — rows from PublishQueue; workers dequeue per docs/ZEUS_FINAL_BUILD_PLAN.md Track D. Legal/compliance gates before live post for regulated brands."
+                  />
+                </SalesOnly>
+              }
+            />
+            <Route
+              path="/social/replies"
+              element={
+                <SalesOnly>
+                  <ModuleStub
+                    eyebrow="Social"
+                    title="Comment AI"
+                    description="Draft/suggested replies to comments and mentions; separately metered from Listen intelligence per Zeus plan. Wire responder SKU, approval inbox, and audit log — track outcomes in Social → Activity."
                   />
                 </SalesOnly>
               }

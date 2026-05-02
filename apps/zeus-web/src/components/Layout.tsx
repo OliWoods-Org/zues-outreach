@@ -4,13 +4,16 @@ import { useMode } from '../App';
 import { AppHeader } from './AppHeader';
 import { AmbientBackdrop } from './AmbientBackdrop';
 import { CrossGridOverlay } from './CrossGridOverlay';
+import { tntPpcAgents } from '../data/tntPpcAgents';
 
-export type NavLane = 'growth' | 'voice';
+export type NavLane = 'growth' | 'voice' | 'ppc' | 'social';
 
 export type SalesNavItem = {
   path: string;
   label: string;
   lane: NavLane;
+  /** Highlight when pathname is this path or a child `/path/...` (e.g. PPC dashboard). */
+  activePrefix?: boolean;
 };
 
 export const salesNavGroups: { heading: string; items: SalesNavItem[] }[] = [
@@ -23,7 +26,27 @@ export const salesNavGroups: { heading: string; items: SalesNavItem[] }[] = [
       { path: '/publish', label: 'Publish', lane: 'growth' },
       { path: '/brand', label: 'Brand kit', lane: 'growth' },
       { path: '/affiliates', label: 'Affiliates', lane: 'growth' },
+      { path: '/marketplace', label: 'Marketplace', lane: 'growth' },
       { path: '/briefings', label: 'Briefings', lane: 'growth' },
+    ],
+  },
+  {
+    heading: 'PPC — TNT',
+    items: [
+      { path: '/ppc', label: 'PPC dashboard', lane: 'ppc', activePrefix: true },
+      ...tntPpcAgents.map(a => ({
+        path: `/ppc/${a.id}`,
+        label: a.label,
+        lane: 'ppc' as const,
+      })),
+    ],
+  },
+  {
+    heading: 'Social',
+    items: [
+      { path: '/social/activity', label: 'Activity', lane: 'social' },
+      { path: '/social/autopost', label: 'Autopost', lane: 'social' },
+      { path: '/social/replies', label: 'Comment AI', lane: 'social' },
     ],
   },
   {
@@ -54,6 +77,69 @@ const agents = [
   { name: 'Kai', color: '#34d399' },
 ];
 
+function navActive(pathname: string, item: SalesNavItem): boolean {
+  if (item.activePrefix) {
+    return pathname === item.path || pathname.startsWith(`${item.path}/`);
+  }
+  return pathname === item.path;
+}
+
+function laneActiveClasses(lane: NavLane): string {
+  switch (lane) {
+    case 'growth':
+      return 'bg-teal-500/10 text-teal-100 font-medium border border-teal-400/35 shadow-[0_0_22px_-10px_rgba(45,212,191,0.45)]';
+    case 'ppc':
+      return 'bg-amber-500/12 text-amber-100 font-medium border border-amber-400/30 shadow-[0_0_22px_-12px_rgba(245,158,11,0.35)]';
+    case 'social':
+      return 'bg-rose-500/12 text-rose-100 font-medium border border-rose-400/28 shadow-[0_0_22px_-12px_rgba(244,63,94,0.25)]';
+    case 'voice':
+    default:
+      return 'bg-brand-blue/12 text-brand-blue font-medium border border-brand-blue/25';
+  }
+}
+
+function laneIdleClasses(lane: NavLane): string {
+  switch (lane) {
+    case 'growth':
+      return 'text-zinc-500 hover:text-teal-200/90 hover:bg-teal-500/5 border border-transparent';
+    case 'ppc':
+      return 'text-zinc-500 hover:text-amber-200/90 hover:bg-amber-500/5 border border-transparent';
+    case 'social':
+      return 'text-zinc-500 hover:text-rose-200/90 hover:bg-rose-500/5 border border-transparent';
+    case 'voice':
+    default:
+      return 'text-zinc-500 hover:text-white hover:bg-white/[0.05]';
+  }
+}
+
+function laneDot(lane: NavLane) {
+  if (lane === 'growth') {
+    return (
+      <span
+        className="w-1 h-1 rounded-full bg-teal-400/80 shadow-[0_0_8px_rgba(45,212,191,0.8)] flex-shrink-0"
+        aria-hidden
+      />
+    );
+  }
+  if (lane === 'ppc') {
+    return (
+      <span
+        className="w-1 h-1 rounded-full bg-amber-400/85 shadow-[0_0_8px_rgba(245,158,11,0.65)] flex-shrink-0"
+        aria-hidden
+      />
+    );
+  }
+  if (lane === 'social') {
+    return (
+      <span
+        className="w-1 h-1 rounded-full bg-rose-400/85 shadow-[0_0_8px_rgba(244,63,94,0.55)] flex-shrink-0"
+        aria-hidden
+      />
+    );
+  }
+  return null;
+}
+
 function SalesNavGrouped({ onNavigate }: { onNavigate?: () => void }) {
   const location = useLocation();
   return (
@@ -63,31 +149,20 @@ function SalesNavGrouped({ onNavigate }: { onNavigate?: () => void }) {
           <p className="text-[9px] uppercase tracking-[0.16em] text-zinc-600 mb-2 px-2 font-medium">{group.heading}</p>
           <ul className="space-y-0.5">
             {group.items.map(item => {
-              const active = location.pathname === item.path;
-              const growth = item.lane === 'growth';
+              const active = navActive(location.pathname, item);
+              const showDot = item.lane === 'growth' || item.lane === 'ppc' || item.lane === 'social';
               return (
                 <li key={item.path}>
                   <Link
                     to={item.path}
                     onClick={onNavigate}
                     className={`block px-3 py-2.5 rounded-lg text-[13px] transition-all duration-150 ${
-                      active
-                        ? growth
-                          ? 'bg-teal-500/10 text-teal-100 font-medium border border-teal-400/35 shadow-[0_0_22px_-10px_rgba(45,212,191,0.45)]'
-                          : 'bg-brand-blue/12 text-brand-blue font-medium border border-brand-blue/25'
-                        : growth
-                          ? 'text-zinc-500 hover:text-teal-200/90 hover:bg-teal-500/5 border border-transparent'
-                          : 'text-zinc-500 hover:text-white hover:bg-white/[0.05]'
+                      active ? laneActiveClasses(item.lane) : laneIdleClasses(item.lane)
                     }`}
                   >
                     <span className="flex items-center gap-2">
-                      {growth && (
-                        <span
-                          className="w-1 h-1 rounded-full bg-teal-400/80 shadow-[0_0_8px_rgba(45,212,191,0.8)] flex-shrink-0"
-                          aria-hidden
-                        />
-                      )}
-                      {item.label}
+                      {showDot ? laneDot(item.lane) : null}
+                      <span className="truncate">{item.label}</span>
                     </span>
                   </Link>
                 </li>
@@ -145,8 +220,24 @@ export function Layout({ children }: { children: React.ReactNode }) {
     };
   }, [mobileNavOpen]);
 
+  const dynamicSalesTitle = (() => {
+    const p = location.pathname;
+    if (p.startsWith('/ppc/')) {
+      const slug = p.replace(/^\/ppc\//, '');
+      const agent = tntPpcAgents.find(a => a.id === slug);
+      return agent?.label;
+    }
+    return undefined;
+  })();
+
   const pageTitle =
     [...flatSalesNav, ...guardNav].find(n => n.path === location.pathname)?.label ??
+    dynamicSalesTitle ??
+    ({
+      '/social/activity': 'Social activity',
+      '/social/autopost': 'Autopost',
+      '/social/replies': 'Comment AI',
+    }[location.pathname]) ??
     (location.pathname.startsWith('/scripts') ? 'Script Library' : 'Zeus');
 
   return (
