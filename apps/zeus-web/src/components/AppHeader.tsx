@@ -96,7 +96,7 @@ export function AppHeader({ pageTitle, onMenuClick }: AppHeaderProps) {
         <Link
           to="/chat"
           className="hidden sm:inline-flex p-2 rounded-lg text-zinc-500 hover:text-white hover:bg-white/5"
-          title="Ask sales coach"
+          title="Growth coach"
         >
           <CircleHelp className="w-5 h-5" />
         </Link>

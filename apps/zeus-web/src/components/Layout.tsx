@@ -17,7 +17,13 @@ export type SalesNavItem = {
 };
 
 export const salesNavGroups: { heading: string; items: SalesNavItem[] }[] = [
-  { heading: 'Mission', items: [{ path: '/', label: 'Mission Control', lane: 'voice' }] },
+  {
+    heading: 'Mission',
+    items: [
+      { path: '/', label: 'Mission Control', lane: 'voice' },
+      { path: '/chat', label: 'Growth coach', lane: 'voice' },
+    ],
+  },
   {
     heading: 'Growth OS',
     items: [
@@ -61,7 +67,6 @@ export const salesNavGroups: { heading: string; items: SalesNavItem[] }[] = [
       { path: '/pipeline', label: 'Pipeline', lane: 'voice' },
       { path: '/analytics', label: 'Analytics', lane: 'voice' },
       { path: '/scripts', label: 'Script Library', lane: 'voice' },
-      { path: '/chat', label: 'Chat', lane: 'voice' },
       { path: '/settings', label: 'Settings', lane: 'voice' },
     ],
   },
@@ -71,7 +76,7 @@ export const flatSalesNav = salesNavGroups.flatMap(g => g.items);
 
 const guardNav = [
   { path: '/guard', label: 'Dashboard' },
-  { path: '/chat', label: 'Chat' },
+  { path: '/chat', label: 'Defense assistant' },
   { path: '/settings', label: 'Settings' },
 ];
 

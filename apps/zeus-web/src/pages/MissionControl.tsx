@@ -18,6 +18,7 @@ import { MissionKpiCharts } from '../components/MissionKpiCharts';
 import { ZeusGrowthPulse } from '../components/ZeusGrowthPulse';
 import { ZeusIntelFeed } from '../components/ZeusIntelFeed';
 import { ZeusMissionHero } from '../components/ZeusMissionHero';
+import { MissionControlAssistant } from '../components/MissionControlAssistant';
 import { pipelineStats } from '../data/deals';
 import { MARKETPLACE_CREATOR_SHARE_PERCENT } from '../constants/marketplace';
 import {
@@ -60,6 +61,8 @@ export function MissionControl() {
   return (
     <div className="space-y-6 sm:space-y-8 max-w-7xl w-full min-w-0">
       <ZeusMissionHero />
+
+      <MissionControlAssistant />
 
       <ZeusGrowthPulse />
 
@@ -244,7 +247,7 @@ export function MissionControl() {
             to="/chat"
             className="inline-flex items-center gap-1 min-h-10 text-xs text-brand-blue mt-4 hover:text-sky-300"
           >
-            Open transcripts <ArrowRight className="w-3 h-3 shrink-0" />
+            Open Growth coach <ArrowRight className="w-3 h-3 shrink-0" />
           </Link>
         </div>
 
@@ -252,7 +255,7 @@ export function MissionControl() {
           <p className="text-[10px] uppercase tracking-[0.18em] text-teal-400/80 mb-2">Execution lane</p>
           <h3 className="text-lg font-semibold text-white mb-2">Dial studio</h3>
           <p className="text-sm text-zinc-500 leading-relaxed mb-4">
-            Voice metrics above stay on teal “surge” surfaces. Scripts, chat coach, and carrier health round out outbound —
+            Voice metrics above stay on teal “surge” surfaces. Scripts, Growth coach, and carrier health round out outbound —
             distinct from Growth OS Listen / Publish lanes.
           </p>
           <div className="flex flex-col xs:flex-row xs:flex-wrap gap-2 xs:items-center">
@@ -260,7 +263,7 @@ export function MissionControl() {
               to="/chat"
               className="text-xs font-medium text-teal-300 hover:text-teal-200 inline-flex items-center gap-1 min-h-10"
             >
-              Chat coach <ArrowRight className="w-3 h-3 shrink-0" />
+              Growth coach <ArrowRight className="w-3 h-3 shrink-0" />
             </Link>
             <span className="hidden xs:inline text-zinc-700">·</span>
             <Link

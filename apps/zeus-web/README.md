@@ -30,7 +30,7 @@ npm run build
 | **Growth** | `/publish`, `/influencers`, `/brand`, `/brand/wizard`, `/affiliates`, `/marketplace`, `/briefings` | Affiliates + Briefings have richer mocks |
 | **PPC — TNT** | `/ppc`, `/ppc/:agentId` | Adam PPC agents · [`tntPpcAgents.ts`](src/data/tntPpcAgents.ts) |
 | **Social** | `/social/activity`, `/social/autopost`, `/social/replies` | Activity tracker mock |
-| **Voice** | `/campaigns`, `/pipeline`, `/analytics`, `/scripts`, `/chat`, `/settings` | Full Siren-origin pages |
+| **Voice** | `/campaigns`, `/pipeline`, `/analytics`, `/scripts`, `/settings` | Outbound + dial; **Growth coach** is under **Mission** (`/chat`) |
 | **Guard** | `/guard` | Guard mode |
 
 ## Ten parallel workstreams (one owner each)
