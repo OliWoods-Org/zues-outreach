@@ -68,6 +68,7 @@ export const salesNavGroups: { heading: string; items: SalesNavItem[] }[] = [
       { path: '/content-studio', label: 'Content Studio', lane: 'growth' },
       { path: '/pr', label: 'PR & Press', lane: 'growth' },
       { path: '/eckleberg', label: 'Eckleberg UX', lane: 'growth' },
+      { path: '/competitors', label: 'Competitor Intel', lane: 'growth' },
     ],
   },
   {
