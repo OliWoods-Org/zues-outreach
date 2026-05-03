@@ -32,6 +32,7 @@ import { Onboarding } from './pages/Onboarding';
 import { ContentStudio } from './pages/ContentStudio';
 import { MorningBrief } from './pages/MorningBrief';
 import { CompetitorIntel } from './pages/CompetitorIntel';
+import { RelayModule } from './pages/RelayModule';
 
 type Mode = 'sales' | 'guard';
 
@@ -256,6 +257,14 @@ function App() {
               element={
                 <SalesOnly>
                   <ContentStudio />
+                </SalesOnly>
+              }
+            />
+            <Route
+              path="/relay"
+              element={
+                <SalesOnly>
+                  <RelayModule />
                 </SalesOnly>
               }
             />
