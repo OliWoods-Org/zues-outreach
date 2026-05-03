@@ -21,6 +21,7 @@ import { SocialActivity } from './pages/SocialActivity';
 import { ContentCalendar } from './pages/ContentCalendar';
 import { Onboarding } from './pages/Onboarding';
 import { ContentStudio } from './pages/ContentStudio';
+import { MorningBrief } from './pages/MorningBrief';
 
 type Mode = 'sales' | 'guard';
 
@@ -261,6 +262,7 @@ function App() {
             />
             <Route path="/settings" element={<SettingsPage />} />
             <Route path="/onboarding" element={<Onboarding />} />
+            <Route path="/morning-brief" element={<SalesOnly><MorningBrief /></SalesOnly>} />
             <Route
               path="/content-studio"
               element={
