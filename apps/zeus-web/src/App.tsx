@@ -10,6 +10,15 @@ import { MissionControl } from './pages/MissionControl';
 import { Campaigns } from './pages/Campaigns';
 import { Analytics } from './pages/Analytics';
 import { ModuleStub } from './pages/ModuleStub';
+import { TargetModule } from './pages/TargetModule';
+import { EngageModule } from './pages/EngageModule';
+import { ConvertModule } from './pages/ConvertModule';
+import { ReportModule } from './pages/ReportModule';
+import { PublishModule } from './pages/PublishModule';
+import { BrandModule } from './pages/BrandModule';
+import { MarketplaceModule } from './pages/MarketplaceModule';
+import { AutopostModule } from './pages/AutopostModule';
+import { RepliesModule } from './pages/RepliesModule';
 import { AffiliatesModule } from './pages/AffiliatesModule';
 import { BriefingsBrain } from './pages/BriefingsBrain';
 import { BrandWizard } from './pages/BrandWizard';
@@ -64,10 +73,7 @@ function App() {
               path="/target"
               element={
                 <SalesOnly>
-                  <ModuleStub
-                    title="Target"
-                    description="ICP, Apollo lists, Lead Score, Airtable pipeline — same lane as find-leads / enrich."
-                  />
+                  <TargetModule />
                 </SalesOnly>
               }
             />
@@ -75,10 +81,7 @@ function App() {
               path="/engage"
               element={
                 <SalesOnly>
-                  <ModuleStub
-                    title="Engage"
-                    description="Email sequences (Instantly) + Siren voice — plugin agents and campaigns. Pairs with Voice → Campaigns & Chat."
-                  />
+                  <EngageModule />
                 </SalesOnly>
               }
             />
@@ -86,10 +89,7 @@ function App() {
               path="/convert"
               element={
                 <SalesOnly>
-                  <ModuleStub
-                    title="Convert"
-                    description="CRM + pipeline — HubSpot sync, meetings booked, stages in Airtable Leads. Links to Pipeline."
-                  />
+                  <ConvertModule />
                 </SalesOnly>
               }
             />
@@ -97,10 +97,7 @@ function App() {
               path="/report"
               element={
                 <SalesOnly>
-                  <ModuleStub
-                    title="Report"
-                    description="Unified KPI lens — campaign + social + optional content metrics; deep links to Analytics & Briefings."
-                  />
+                  <ReportModule />
                 </SalesOnly>
               }
             />
@@ -108,10 +105,7 @@ function App() {
               path="/publish"
               element={
                 <SalesOnly>
-                  <ModuleStub
-                    title="Publish"
-                    description="Multi-channel queue — Meta, X, Threads… Approved rows from PublishQueue."
-                  />
+                  <PublishModule />
                 </SalesOnly>
               }
             />
@@ -119,10 +113,7 @@ function App() {
               path="/brand"
               element={
                 <SalesOnly>
-                  <ModuleStub
-                    title="Brand kit"
-                    description="Logo, voice, guidelines — BrandProfiles in Airtable; unlocks templates."
-                  />
+                  <BrandModule />
                 </SalesOnly>
               }
             />
@@ -162,11 +153,7 @@ function App() {
               path="/marketplace"
               element={
                 <SalesOnly>
-                  <ModuleStub
-                    eyebrow="Ecosystem"
-                    title="Marketplace"
-                    description="Connects to MAMA and CoFounder (CF) marketplaces — agents, skills, and listing discovery in one place. Wire OAuth, catalog sync, and install actions here (no credentials in the client)."
-                  />
+                  <MarketplaceModule />
                 </SalesOnly>
               }
             />
@@ -198,11 +185,7 @@ function App() {
               path="/social/autopost"
               element={
                 <SalesOnly>
-                  <ModuleStub
-                    eyebrow="Social"
-                    title="Autopost"
-                    description="Approval-gated queue for Meta, X, Threads, LinkedIn… — rows from PublishQueue; workers dequeue per docs/ZEUS_FINAL_BUILD_PLAN.md Track D. Legal/compliance gates before live post for regulated brands."
-                  />
+                  <AutopostModule />
                 </SalesOnly>
               }
             />
@@ -210,11 +193,7 @@ function App() {
               path="/social/replies"
               element={
                 <SalesOnly>
-                  <ModuleStub
-                    eyebrow="Social"
-                    title="Comment AI"
-                    description="Draft/suggested replies to comments and mentions; separately metered from Listen intelligence per Zeus plan. Wire responder SKU, approval inbox, and audit log — track outcomes in Social → Activity."
-                  />
+                  <RepliesModule />
                 </SalesOnly>
               }
             />
