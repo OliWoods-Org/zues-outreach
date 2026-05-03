@@ -2,6 +2,8 @@
 
 Prioritized ideas beyond the current stub UI (mock replies, no backend). Pick by product phase.
 
+**Done in app (scaffold / partial):** 2 mode pill, 3 Guard CTA + `?q=`, 4 session-memory hint, 5 export MD, 13 typing stub, 14 regenerate, 19 thread title, 21 `/` + `Esc`, 22 breadcrumb, 27 `aria-live`, 28 contrast tweaks (`zinc-*`), 29 session draft, 30 idempotent `q` via `Set`, 33–34 `trackZeus` events, 35 strings in `i18n/chatStrings.ts`, Playwright `e2e/chat.spec.ts`. Still open: real LLM/RAG, Guard live telemetry, rate limits, audit log, voice, files, mobile shortcut tab, full i18n locales.
+
 ---
 
 ## Product & onboarding

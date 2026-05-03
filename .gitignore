@@ -13,6 +13,10 @@ data/*.csv
 node_modules/
 dist/
 
+# Playwright (zeus-web)
+apps/zeus-web/test-results/
+apps/zeus-web/playwright-report/
+
 # OS / IDE
 .DS_Store
 .idea/

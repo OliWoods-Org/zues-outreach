@@ -32,12 +32,13 @@ Create one table named **`Leads`** (matches default `AIRTABLE_TABLE`).
 | 5 | **Title** | Single line text | No | |
 | 6 | **Phone** | Phone or text | No | |
 | 7 | **LinkedIn** | URL | No | |
-| 8 | **Source** | Single line text | No | e.g. Apollo, referral, web |
-| 9 | **Campaign** | Single line text | No | Default from env: `Elevar Master Outreach` |
-| 10 | **Segment** | Single select | No | Options: `Clinic`, `Pharmacy`, `Creator`, `Other` |
-| 11 | **Lead Score** | Number (integer 0–100) | No | Optional; map CSV `lead_score` |
-| 12 | **Status** | Single select | No | e.g. New, Contacted, Qualified, Meeting, Nurture, Closed |
-| 13 | **Notes** | Long text | No | |
+| 8 | **Website** | URL | No | From Maps scrape / Apollo org |
+| 9 | **Source** | Single line text | No | e.g. Apollo, RapidAPI Maps |
+| 10 | **Campaign** | Single line text | No | Default from env: `Elevar Master Outreach` |
+| 11 | **Segment** | Single select | No | Options: `Clinic`, `Pharmacy`, `Creator`, `Other` |
+| 12 | **Lead Score** | Number (integer 0–100) | No | Optional; map CSV `lead_score` |
+| 13 | **Status** | Single select | No | e.g. New, Contacted, Qualified, Meeting, Nurture, Closed |
+| 14 | **Notes** | Long text | No | |
 
 **Single select options — Segment**
 
