@@ -58,6 +58,7 @@ export const salesNavGroups: { heading: string; items: SalesNavItem[] }[] = [
       { path: '/social/activity', label: 'Activity', lane: 'social' },
       { path: '/social/autopost', label: 'Autopost', lane: 'social' },
       { path: '/social/replies', label: 'Comment AI', lane: 'social' },
+      { path: '/calendar', label: 'Content calendar', lane: 'social' },
     ],
   },
   {
