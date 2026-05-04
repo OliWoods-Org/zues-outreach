@@ -21,6 +21,7 @@ export const salesNavGroups: { heading: string; items: SalesNavItem[] }[] = [
     heading: 'Mission',
     items: [
       { path: '/', label: 'Mission Control', lane: 'voice' },
+      { path: '/morning-brief', label: 'Morning Brief', lane: 'voice' },
       { path: '/chat', label: 'Growth coach', lane: 'voice' },
     ],
   },
@@ -58,6 +59,16 @@ export const salesNavGroups: { heading: string; items: SalesNavItem[] }[] = [
       { path: '/social/activity', label: 'Activity', lane: 'social' },
       { path: '/social/autopost', label: 'Autopost', lane: 'social' },
       { path: '/social/replies', label: 'Comment AI', lane: 'social' },
+      { path: '/calendar', label: 'Content calendar', lane: 'social' },
+    ],
+  },
+  {
+    heading: 'Intelligence',
+    items: [
+      { path: '/content-studio', label: 'Content Studio', lane: 'growth' },
+      { path: '/pr', label: 'PR & Press', lane: 'growth' },
+      { path: '/eckleberg', label: 'Eckleberg UX', lane: 'growth' },
+      { path: '/competitors', label: 'Competitor Intel', lane: 'growth' },
     ],
   },
   {

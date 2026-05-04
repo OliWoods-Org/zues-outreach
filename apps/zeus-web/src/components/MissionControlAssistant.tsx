@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { ArrowRight, MessageSquareText } from 'lucide-react';
 import { growthCoachPrompts } from '../data/growthCoachPrompts';
+import { trackZeus } from '../lib/analytics';
 
 /**
  * Prominent entry to Growth coach — avoids burying chat under Voice & outbound only.
@@ -36,6 +37,7 @@ export function MissionControlAssistant() {
           </div>
           <Link
             to="/chat"
+            onClick={() => trackZeus('mission_open_full_chat', {})}
             className="inline-flex shrink-0 items-center justify-center gap-2 min-h-11 px-4 py-2.5 rounded-xl zeus-cta-surge text-sm font-semibold whitespace-nowrap self-start sm:self-center"
           >
             Open full chat
@@ -49,6 +51,7 @@ export function MissionControlAssistant() {
             <Link
               key={label}
               to={`/chat?q=${encodeURIComponent(prompt)}`}
+              onClick={() => trackZeus('mission_prompt_chip', { label })}
               className="inline-flex items-center rounded-lg border border-white/[0.08] bg-black/30 px-3 py-2.5 text-left text-sm text-zinc-300 hover:border-teal-400/35 hover:bg-teal-500/[0.06] hover:text-white transition-colors min-h-[44px]"
             >
               {label}

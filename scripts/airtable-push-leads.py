@@ -53,6 +53,8 @@ DEFAULT_MAP: dict[str, str] = {
     "phone": "Phone",
     "linkedin": "LinkedIn",
     "linkedin_url": "LinkedIn",
+    "website": "Website",
+    "url": "Website",
     "source": "Source",
     "lead_source": "Source",
     "notes": "Notes",

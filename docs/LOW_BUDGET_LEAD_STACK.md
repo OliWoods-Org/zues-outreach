@@ -66,10 +66,14 @@ Ordered for **Elevar-style** US clinics / pharmacies / local businesses.
 | Script | Cost model | Role |
 |--------|------------|------|
 | `scripts/elevar_apollo_pilot.py` | Apollo credits on **bulk_match** | Multi-segment B2B pull + enrich |
-| `scripts/airtable-push-leads.py` | Airtable API (free within limits) | Upsert to **Elevar Outreach** |
-| Slash commands (`find-leads`, `enrich-leads`) | Operator runs Apollo via Claude | Same ecosystem |
+| `scripts/rapidapi_maps_leads.py` | RapidAPI subscription | Maps-style **local** businesses → CSV |
+| `scripts/apify_maps_run.py` | Apify actor run | Same lane — **you** pick actor + input JSON |
+| `scripts/enrich_hunter_gap.py` | Hunter.io credits | Domain-search email when CSV has **website** |
+| `scripts/airtable-push-leads.py` | Airtable API | Upsert to **Elevar Outreach** |
+| `scripts/pipeline_low_budget.sh` | Orchestrates above | Env flags: `RUN_RAPIDAPI_MAPS`, `RUN_APOLLO_PILOT`, etc. |
+| Slash commands (`find-leads`, `enrich-leads`) | Operator + Apollo | Same ecosystem |
 
-**Gap:** no built-in **Google Maps** or **RapidAPI** driver yet — add a small `scripts/maps_leads_*.py` when you pick **one** provider (Apify vs RapidAPI) and lock env vars (`APIFY_TOKEN` or `RAPIDAPI_KEY`).
+External / human tasks: [`docs/TASKS_REMAINING_EXTERNAL.md`](TASKS_REMAINING_EXTERNAL.md).
 
 ---
 

@@ -1,5 +1,9 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { ArrowRight, MessageSquareText } from 'lucide-react';
 import { calls, guardStats, personas } from '../data/calls';
+import { trackZeus } from '../lib/analytics';
+import { useMode } from '../App';
 
 const stats = [
   { label: 'Intercepted', value: guardStats.callsIntercepted.toString(), accent: '#ef4444' },
@@ -24,6 +28,14 @@ const personaColors: Record<string, string> = {
 
 export function Guard() {
   const [sensitivity, setSensitivity] = useState(75);
+  const { setMode } = useMode();
+  const navigate = useNavigate();
+
+  const openDefenseChat = () => {
+    trackZeus('guard_open_defense_chat', {});
+    setMode('guard');
+    navigate(`/chat?q=${encodeURIComponent('Show call stats for this week')}`);
+  };
 
   return (
     <div className="space-y-8">
@@ -32,6 +44,39 @@ export function Guard() {
         <h2 className="text-2xl font-semibold text-white tracking-tight">Guard Dashboard</h2>
         <p className="text-sm text-[#888] mt-2">AI-powered call interception and scam defense</p>
       </div>
+
+      <section
+        className="relative overflow-hidden rounded-2xl border border-rose-400/25 bg-gradient-to-br from-rose-950/35 via-[#0c080c]/90 to-[#060608] p-5 sm:p-6"
+        aria-labelledby="guard-defense-assistant-heading"
+      >
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+          <div className="flex gap-3 min-w-0">
+            <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-rose-400/35 bg-rose-500/10 text-rose-200">
+              <MessageSquareText className="h-5 w-5" aria-hidden />
+            </span>
+            <div>
+              <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-rose-400/90 mb-1">
+                Zeus assistant
+              </p>
+              <h3 id="guard-defense-assistant-heading" className="text-lg font-semibold text-white tracking-tight">
+                Defense assistant
+              </h3>
+              <p className="text-sm text-zinc-500 mt-1.5 max-w-xl leading-relaxed">
+                Ask for whitelist changes, persona stats, and intercepted-call summaries — same chat as Mission
+                Control, Guard-brained.
+              </p>
+            </div>
+          </div>
+          <button
+            type="button"
+            onClick={openDefenseChat}
+            className="inline-flex shrink-0 items-center justify-center gap-2 min-h-11 px-4 py-2.5 rounded-xl border border-rose-400/40 bg-rose-950/40 text-sm font-semibold text-rose-100 hover:bg-rose-900/50 hover:border-rose-400/55 transition-colors whitespace-nowrap self-start sm:self-center"
+          >
+            Open Defense assistant
+            <ArrowRight className="w-4 h-4 shrink-0" />
+          </button>
+        </div>
+      </section>
 
       {/* Stats Row */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">

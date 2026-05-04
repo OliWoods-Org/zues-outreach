@@ -6,6 +6,17 @@ Use this as a **work queue**. Order matters within each track; parallel tracks a
 
 ---
 
+## Outreach launch + 2pm execution (Elevar & all products)
+
+| Doc | Purpose |
+|-----|---------|
+| [**`OUTREACH_LAUNCH_TASKS.md`**](OUTREACH_LAUNCH_TASKS.md) | **Start outbound** — Elevar first, then LuxuryTravels, Siren, MAMA, … — Airtable bases, env, scripts, weekly rhythm. |
+| [**`CLAUDE_2PM_TASKS.md`**](CLAUDE_2PM_TASKS.md) | **Afternoon block** — repeatable 2pm checklist (env, pipeline health, one concrete advance, log). |
+| **Desktop mirror** | `/Users/woods/Desktop/ZEUS_OUTREACH_LAUNCH_TASKS.md` — same checklist for outside-repo access; **sync from `OUTREACH_LAUNCH_TASKS.md` when it changes.** |
+
+---
+
+
 ## Phase 0 — Decisions & inventory (human + docs)
 
 - [ ] **0.1** Record decision: MAMA MCP Marketplace = separate base vs **Track** field in MAMA Outreach → update [`ZEUS_OUTREACH_PLAN.md`](ZEUS_OUTREACH_PLAN.md) or Notion.
@@ -41,11 +52,15 @@ Use this as a **work queue**. Order matters within each track; parallel tracks a
 
 ## Track C — This repo (`zues-outreach` execution layer)
 
-- [ ] **C.1** Smoke-test all slash commands after plugin rename: `/find-leads`, `/airtable-sync`, `/social-listen`, etc.
+- [ ] **C.1** Smoke-test all slash commands after plugin rename: `/find-leads`, `/airtable-sync`, `/social-listen`, `/maps-leads`, etc.
 - [x] **C.2** **`scripts/trendposts_append.py`** — CSV → **TrendPosts** upsert on **Dedupe Key**; env `AIRTABLE_TABLE_TRENDPOSTS`, `AIRTABLE_MERGE_FIELD_TREND`.
 - [x] **C.3** **`commands/listen-to-airtable.md`** — pipeline doc.
 - [x] **C.4** Sample CSV regression: `data/sample-leads-dryrun.csv` + `--dry-run` (no schema change required).
 - [x] **C.5** **`agents/growth-brain.md`** — inputs/outputs for `OptimizationSuggestions`.
+- [x] **C.6** **`scripts/rapidapi_maps_leads.py`** + **`scripts/apify_maps_run.py`** — Maps lane (keys + actor choice are external).
+- [x] **C.7** **`scripts/enrich_hunter_gap.py`** — Hunter domain gap-fill (needs `HUNTER_API_KEY`).
+- [x] **C.8** **`scripts/pipeline_low_budget.sh`** — optional orchestration.
+- [ ] **C.9** Wire **Neverbounce/ZeroBounce** batch verify before Instantly — API keys + script TBD.
 
 ---
 

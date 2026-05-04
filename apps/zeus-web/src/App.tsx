@@ -18,6 +18,11 @@ import { ListenModule } from './pages/ListenModule';
 import { PpcDashboard } from './pages/PpcDashboard';
 import { PpcAgentDetail } from './pages/PpcAgentDetail';
 import { SocialActivity } from './pages/SocialActivity';
+import { ContentCalendar } from './pages/ContentCalendar';
+import { Onboarding } from './pages/Onboarding';
+import { ContentStudio } from './pages/ContentStudio';
+import { MorningBrief } from './pages/MorningBrief';
+import { CompetitorIntel } from './pages/CompetitorIntel';
 
 type Mode = 'sales' | 'guard';
 
@@ -214,6 +219,14 @@ function App() {
               }
             />
             <Route
+              path="/calendar"
+              element={
+                <SalesOnly>
+                  <ContentCalendar />
+                </SalesOnly>
+              }
+            />
+            <Route
               path="/campaigns"
               element={
                 <SalesOnly>
@@ -249,6 +262,24 @@ function App() {
               }
             />
             <Route path="/settings" element={<SettingsPage />} />
+            <Route path="/onboarding" element={<Onboarding />} />
+            <Route path="/morning-brief" element={<SalesOnly><MorningBrief /></SalesOnly>} />
+            <Route
+              path="/competitors"
+              element={
+                <SalesOnly>
+                  <CompetitorIntel />
+                </SalesOnly>
+              }
+            />
+            <Route
+              path="/content-studio"
+              element={
+                <SalesOnly>
+                  <ContentStudio />
+                </SalesOnly>
+              }
+            />
           </Routes>
         </Layout>
       </BrowserRouter>

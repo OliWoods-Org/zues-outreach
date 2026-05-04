@@ -123,6 +123,7 @@ zues-outreach/
 | [`/social-listen`](commands/social-listen.md) | Reddit/X keyword monitoring — feeds intelligence lane / TrendPosts patterns |
 | [`/crm-sync`](commands/crm-sync.md) | Push leads into HubSpot |
 | [`/airtable-sync`](commands/airtable-sync.md) | Upsert leads into a scoped outreach base — dedupe by Email |
+| [`/maps-leads`](commands/maps-leads.md) | RapidAPI / Apify **local** Maps-style businesses → CSV (see [`docs/LOW_BUDGET_LEAD_STACK.md`](docs/LOW_BUDGET_LEAD_STACK.md)) |
 
 Dry-run example before touching Airtable:
 
@@ -216,6 +217,9 @@ Copy [`.env.example`](.env.example) to `~/.zeus-env` (or `~/.elevare-env`). Scop
 | Google Ads | `GOOGLE_ADS_CLIENT_ID`, `GOOGLE_ADS_CLIENT_SECRET`, `GOOGLE_ADS_REFRESH_TOKEN`, `GOOGLE_ADS_CUSTOMER_ID`, `GOOGLE_ADS_DEVELOPER_TOKEN` |
 | HubSpot | `HUBSPOT_API_KEY` |
 | Airtable | `AIRTABLE_PAT`, `AIRTABLE_BASE_ID`, optional table/campaign/merge field overrides |
+| RapidAPI (Maps listings) | `RAPIDAPI_KEY`, `RAPIDAPI_MAPS_HOST`, `RAPIDAPI_MAPS_PATH` |
+| Apify (Maps actors) | `APIFY_TOKEN`, `APIFY_MAPS_ACTOR_ID`, optional `APIFY_MAPS_INPUT_JSON` |
+| Hunter.io (email gap-fill) | `HUNTER_API_KEY` |
 | Reddit | `REDDIT_*` (client id/secret, user credentials as documented) |
 | X / Twitter | `TWITTER_BEARER_TOKEN` (optional listen features) |
 
@@ -253,12 +257,16 @@ Master checklist and deep references:
 | Document | Purpose |
 |----------|---------|
 | [`docs/CLAUDE_TASKS.md`](docs/CLAUDE_TASKS.md) | Claude Code checklist by track |
+| [`docs/OUTREACH_LAUNCH_TASKS.md`](docs/OUTREACH_LAUNCH_TASKS.md) | **Start outreach** — Elevar + all product Airtable bases, Zeus scripts |
+| [`docs/CLAUDE_2PM_TASKS.md`](docs/CLAUDE_2PM_TASKS.md) | **2pm** repeatable ops block — links outreach doc + desktop copy |
 | [`docs/ZEUS_FINAL_BUILD_PLAN.md`](docs/ZEUS_FINAL_BUILD_PLAN.md) | Phased execution — Mission Control, Airtable, workers, gates |
 | [`docs/ZEUS_OUTREACH_PLAN.md`](docs/ZEUS_OUTREACH_PLAN.md) | Portfolio bases, Listen vs responder, Growth Brain, v2 |
 | [`docs/AIRTABLE_ZEUS_SCHEMA.md`](docs/AIRTABLE_ZEUS_SCHEMA.md) | Table and field reference |
 | [`docs/ZEUS_MISSION_CONTROL_IA.md`](docs/ZEUS_MISSION_CONTROL_IA.md) | Information architecture |
 | [`docs/TNT_LOCAL_PREVIEW.md`](docs/TNT_LOCAL_PREVIEW.md) | TNT / FastAPI local preview |
 | [`docs/ELEVAR_OUTREACH_AIRTABLE.md`](docs/ELEVAR_OUTREACH_AIRTABLE.md) | Elevar `Leads` table, Apollo pilot script |
+| [`docs/LOW_BUDGET_LEAD_STACK.md`](docs/LOW_BUDGET_LEAD_STACK.md) | RapidAPI / Apify / Hunter orchestration |
+| [`docs/TASKS_REMAINING_EXTERNAL.md`](docs/TASKS_REMAINING_EXTERNAL.md) | Keys, compliance, vendors — finish outside the repo |
 | [`docs/SOCIAL_LISTEN_TIERS.md`](docs/SOCIAL_LISTEN_TIERS.md) | Listen metering vs AI responder |
 | [`docs/GROWTH_BRAIN_OPTIMIZER.md`](docs/GROWTH_BRAIN_OPTIMIZER.md) | Cross-channel optimizer narrative |
 
