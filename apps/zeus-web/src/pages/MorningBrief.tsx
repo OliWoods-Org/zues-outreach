@@ -419,7 +419,7 @@ export function MorningBrief() {
           </SectionShell>
 
           {/* 3. Relay inbox */}
-          <SectionShell icon={Inbox} title="Relay — Unified Inbox" href="/settings" status={relay?.status ?? 'loading'} accent="blue">
+          <SectionShell icon={Inbox} title="Relay — Unified Inbox" href="/relay" status={relay?.status ?? 'loading'} accent="blue">
             {relay?.data && (
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
                 <Stat label="Open tickets" value={relay.data.openTickets} />
