@@ -37,7 +37,8 @@ const queue: PublishItem[] = [
   },
   {
     id: 'p2',
-    content: 'Speed-to-lead or speed-to-lose. Our voice agent responds to inbound leads in under 60 seconds. What's your current response time?',
+    content:
+      "Speed-to-lead or speed-to-lose. Our voice agent responds to inbound leads in under 60 seconds. What's your current response time?",
     channel: 'X',
     scheduledFor: 'Today 4:30 PM',
     status: 'approved',
