@@ -12,6 +12,7 @@ Use this as a **work queue**. Order matters within each track; parallel tracks a
 |-----|---------|
 | [**`OUTREACH_LAUNCH_TASKS.md`**](OUTREACH_LAUNCH_TASKS.md) | **Start outbound** — Elevar first, then LuxuryTravels, Siren, MAMA, … — Airtable bases, env, scripts, weekly rhythm. |
 | [**`CLAUDE_2PM_TASKS.md`**](CLAUDE_2PM_TASKS.md) | **Afternoon block** — repeatable 2pm checklist (env, pipeline health, one concrete advance, log). |
+| [**`ZEUS_UI_MIDJOURNEY_REFERENCE.md`**](ZEUS_UI_MIDJOURNEY_REFERENCE.md) | Zeus Web — Midjourney prompts / textures aligned to Tailwind (`apps/zeus-web`). |
 | **Desktop mirror** | `/Users/woods/Desktop/ZEUS_OUTREACH_LAUNCH_TASKS.md` — same checklist for outside-repo access; **sync from `OUTREACH_LAUNCH_TASKS.md` when it changes.** |
 
 ---

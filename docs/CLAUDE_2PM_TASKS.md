@@ -6,6 +6,8 @@
 **Full engineering backlog:** [`CLAUDE_TASKS.md`](CLAUDE_TASKS.md)  
 **Desktop shortcut:** `/Users/woods/Desktop/ZEUS_OUTREACH_LAUNCH_TASKS.md` (mirror of outreach launch tasks)
 
+**Zeus Web UI — Midjourney / mood art (canonical in repo):** [`ZEUS_UI_MIDJOURNEY_REFERENCE.md`](ZEUS_UI_MIDJOURNEY_REFERENCE.md) — backgrounds, glass refs, grid overlays; align with `apps/zeus-web` tokens.
+
 ---
 
 ## Every 2pm session (15–30 min)
@@ -45,6 +47,7 @@
 | Maps + Apollo + Hunter cost discipline | [`LOW_BUDGET_LEAD_STACK.md`](LOW_BUDGET_LEAD_STACK.md) |
 | Keys you can’t set in code | [`TASKS_REMAINING_EXTERNAL.md`](TASKS_REMAINING_EXTERNAL.md) |
 | Mission Control / workers / publish | [`ZEUS_FINAL_BUILD_PLAN.md`](ZEUS_FINAL_BUILD_PLAN.md) |
+| Zeus Web visual refresh (MJ prompts, textures) | [`ZEUS_UI_MIDJOURNEY_REFERENCE.md`](ZEUS_UI_MIDJOURNEY_REFERENCE.md) |
 
 ---
 
