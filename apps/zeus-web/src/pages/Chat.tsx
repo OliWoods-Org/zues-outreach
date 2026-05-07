@@ -9,6 +9,7 @@ import { readDraft, writeDraft } from '../hooks/useSessionDraft';
 import { ChatBreadcrumb } from '../components/chat/ChatBreadcrumb';
 import { AssistantAnnouncer } from '../components/chat/AssistantAnnouncer';
 import { TypingIndicator } from '../components/chat/TypingIndicator';
+import { fetchChatCompletion } from '../api/chat';
 
 interface Message {
   id: number;
@@ -88,17 +89,32 @@ export function Chat() {
       setIsTyping(true);
       setAnnounceText(null);
 
-      window.setTimeout(() => {
-        const body = assistantReply(raw);
+      const transcript = [...messages, userMsg].map(m => ({
+        role: m.role,
+        content: m.content,
+      }));
+
+      void (async () => {
+        await new Promise(r => window.setTimeout(r, 320));
+        let body = assistantReply(raw);
+        const api = await fetchChatCompletion({
+          mode: isSales ? 'sales' : 'guard',
+          messages: transcript,
+        });
+        if (api?.content) {
+          body = api.content;
+          trackZeus('assistant_reply_api', { mode: isSales ? 'sales' : 'guard' });
+        } else {
+          trackZeus('assistant_reply_stub', { mode: isSales ? 'sales' : 'guard' });
+        }
         const botMsg: Message = { id: Date.now() + 1, role: 'assistant', content: body };
         setMessages(prev => [...prev, botMsg]);
         setIsTyping(false);
         typingLock.current = false;
         setAnnounceText(body.slice(0, 240));
-        trackZeus('assistant_reply_stub', { mode: isSales ? 'sales' : 'guard' });
-      }, 420);
+      })();
     },
-    [input, isSales, assistantReply]
+    [input, isSales, assistantReply, messages]
   );
 
   const handleSendRef = useRef(handleSend);

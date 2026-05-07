@@ -16,6 +16,7 @@
  */
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { RELAY_DEMO_CONVERSATIONS, relayBriefStatsFromConversations } from '../api/relay';
 import {
   Activity,
   ArrowRight,
@@ -149,12 +150,7 @@ function buildMockBrief(): MorningBriefData {
     },
     relay: {
       status: 'ok',
-      data: {
-        openTickets: 12,
-        avgResponseTime: '2h 14m',
-        flagged: 2,
-        resolvedToday: 8,
-      },
+      data: relayBriefStatsFromConversations(RELAY_DEMO_CONVERSATIONS),
     },
     social: {
       status: 'ok',

@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
 import {
   ArrowRight,
   CheckCircle2,
@@ -16,121 +17,18 @@ import {
   Smartphone,
   Zap,
 } from 'lucide-react';
+import {
+  type Conversation,
+  type ConvStatus,
+  type Platform,
+  type ProactiveRule,
+  type Workflow,
+  RELAY_SNAPSHOT_DEMO,
+  RELAY_WORKFLOW_TEMPLATES,
+  fetchRelayModuleSnapshot,
+} from '../api/relay';
 
-// ============================================================================
-// Types
-// ============================================================================
-
-type ConvStatus = 'open' | 'resolved' | 'handoff';
-type Platform = 'web' | 'email' | 'sms';
-type WorkflowStatus = 'active' | 'paused';
 type RelayTab = 'conversations' | 'workflows' | 'proactive';
-
-interface Conversation {
-  id: string;
-  customer: string;
-  snippet: string;
-  platform: Platform;
-  status: ConvStatus;
-  time: string;
-}
-
-interface Workflow {
-  id: string;
-  name: string;
-  status: WorkflowStatus;
-  triggerCount: number;
-  resolutionRate: number;
-}
-
-interface ProactiveRule {
-  name: string;
-  messagesSent: number;
-  openRate: number;
-  responseRate: number;
-  conversionRate: number;
-}
-
-// ============================================================================
-// Mock data (mirrors relay.ts DEMO constants)
-// ============================================================================
-
-const DEMO_CONVERSATIONS: Conversation[] = [
-  {
-    id: 'cv-001',
-    customer: 'Sarah K.',
-    snippet: "Hi, I can't access my account after the password reset. It keeps saying...",
-    platform: 'web',
-    status: 'resolved',
-    time: '2m ago',
-  },
-  {
-    id: 'cv-002',
-    customer: 'Marcus T.',
-    snippet: 'What are the differences between your Pro and Business plans?',
-    platform: 'web',
-    status: 'open',
-    time: '5m ago',
-  },
-  {
-    id: 'cv-003',
-    customer: 'billing@acmecorp.com',
-    snippet: "I was charged twice for the same invoice. My reference number is INV-2024-...",
-    platform: 'email',
-    status: 'handoff',
-    time: '12m ago',
-  },
-  {
-    id: 'cv-004',
-    customer: '+1 555-0192',
-    snippet: 'Need help setting up the API integration for our CRM',
-    platform: 'sms',
-    status: 'open',
-    time: '18m ago',
-  },
-  {
-    id: 'cv-005',
-    customer: 'Jordan M.',
-    snippet: 'My trial expires tomorrow — can I get an extension?',
-    platform: 'web',
-    status: 'resolved',
-    time: '34m ago',
-  },
-  {
-    id: 'cv-006',
-    customer: 'hello@startupxyz.io',
-    snippet: 'Looking to understand volume pricing for 500+ seats',
-    platform: 'email',
-    status: 'resolved',
-    time: '1h ago',
-  },
-];
-
-const DEMO_WORKFLOWS: Workflow[] = [
-  { id: 'wf-001', name: 'After Hours', status: 'active', triggerCount: 234, resolutionRate: 65.2 },
-  { id: 'wf-002', name: 'VIP Fast Lane', status: 'active', triggerCount: 47, resolutionRate: 91.5 },
-  { id: 'wf-003', name: 'FAQ Deflection', status: 'active', triggerCount: 389, resolutionRate: 78.4 },
-  { id: 'wf-004', name: 'Angry Customer', status: 'active', triggerCount: 23, resolutionRate: 43.5 },
-  { id: 'wf-005', name: 'Billing Issue', status: 'paused', triggerCount: 56, resolutionRate: 67.9 },
-];
-
-const WORKFLOW_TEMPLATES = [
-  'after-hours',
-  'vip-fast-lane',
-  'angry-customer',
-  'faq-deflection',
-  'onboarding',
-  'billing-issue',
-];
-
-const DEMO_PROACTIVE: ProactiveRule[] = [
-  { name: 'Inactive User Re-engagement', messagesSent: 34, openRate: 62.3, responseRate: 28.1, conversionRate: 12.5 },
-  { name: 'Pricing Page Interest', messagesSent: 18, openRate: 78.9, responseRate: 44.2, conversionRate: 22.1 },
-  { name: 'Trial Expiring', messagesSent: 23, openRate: 85.2, responseRate: 51.3, conversionRate: 31.8 },
-  { name: 'Cart Abandoned', messagesSent: 14, openRate: 71.4, responseRate: 35.7, conversionRate: 14.3 },
-];
-
-const WIDGET_SNIPPET = `<script src="https://relay.mama.ai/widget.js" data-token="relay_YOUR_TOKEN"></script>`;
 
 // ============================================================================
 // Sub-components
@@ -169,9 +67,9 @@ function ConversionBadge({ rate }: { rate: number }) {
 // Tab content
 // ============================================================================
 
-function ConversationsTab() {
-  const open = DEMO_CONVERSATIONS.filter(c => c.status === 'open').length;
-  const resolved = DEMO_CONVERSATIONS.filter(c => c.status === 'resolved').length;
+function ConversationsTab({ conversations }: { conversations: Conversation[] }) {
+  const open = conversations.filter(c => c.status === 'open').length;
+  const resolved = conversations.filter(c => c.status === 'resolved').length;
 
   return (
     <div className="space-y-4">
@@ -191,7 +89,7 @@ function ConversationsTab() {
       </div>
 
       <div className="siren-card glass-panel divide-y divide-white/[0.04] overflow-hidden">
-        {DEMO_CONVERSATIONS.map(conv => {
+        {conversations.map(conv => {
           const sm = convStatusMeta[conv.status];
           const StatusIcon = sm.icon;
           const pm = platformMeta[conv.platform];
@@ -227,8 +125,12 @@ function ConversationsTab() {
   );
 }
 
-function WorkflowsTab() {
-  const [workflows, setWorkflows] = useState<Workflow[]>(DEMO_WORKFLOWS);
+function WorkflowsTab({ workflows: initial }: { workflows: Workflow[] }) {
+  const [workflows, setWorkflows] = useState<Workflow[]>(initial);
+
+  useEffect(() => {
+    setWorkflows(initial);
+  }, [initial]);
 
   const toggle = (id: string) =>
     setWorkflows(prev =>
@@ -286,7 +188,7 @@ function WorkflowsTab() {
       <div className="siren-card glass-panel p-5">
         <p className="text-[11px] text-zinc-500 uppercase tracking-wider mb-3">Create from template</p>
         <div className="flex flex-wrap gap-2">
-          {WORKFLOW_TEMPLATES.map(tpl => (
+          {RELAY_WORKFLOW_TEMPLATES.map(tpl => (
             <button
               key={tpl}
               className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-violet-500/20 bg-violet-500/5 text-[11px] text-violet-300 hover:bg-violet-500/15 transition-colors"
@@ -301,10 +203,10 @@ function WorkflowsTab() {
   );
 }
 
-function ProactiveTab() {
-  const totalSent = DEMO_PROACTIVE.reduce((s, r) => s + r.messagesSent, 0);
-  const avgOpen = DEMO_PROACTIVE.reduce((s, r) => s + r.openRate, 0) / DEMO_PROACTIVE.length;
-  const avgConv = DEMO_PROACTIVE.reduce((s, r) => s + r.conversionRate, 0) / DEMO_PROACTIVE.length;
+function ProactiveTab({ rules }: { rules: ProactiveRule[] }) {
+  const totalSent = rules.reduce((s, r) => s + r.messagesSent, 0);
+  const avgOpen = rules.length ? rules.reduce((s, r) => s + r.openRate, 0) / rules.length : 0;
+  const avgConv = rules.length ? rules.reduce((s, r) => s + r.conversionRate, 0) / rules.length : 0;
 
   return (
     <div className="space-y-4">
@@ -323,7 +225,7 @@ function ProactiveTab() {
       </div>
 
       {/* Rules */}
-      {DEMO_PROACTIVE.map(rule => (
+      {rules.map(rule => (
         <div key={rule.name} className="siren-card glass-panel p-5 hover:border-violet-500/25 transition-colors">
           <div className="flex items-start justify-between gap-4">
             <div className="min-w-0 flex-1">
@@ -367,8 +269,15 @@ export function RelayModule() {
   const [widgetOpen, setWidgetOpen] = useState(false);
   const [copied, setCopied] = useState(false);
 
+  const { data, isPending } = useQuery({
+    queryKey: ['relay', 'module'],
+    queryFn: fetchRelayModuleSnapshot,
+  });
+
+  const snapshot = data ?? RELAY_SNAPSHOT_DEMO;
+
   const handleCopy = () => {
-    navigator.clipboard.writeText(WIDGET_SNIPPET).then(() => {
+    navigator.clipboard.writeText(snapshot.widgetSnippet).then(() => {
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     });
@@ -379,6 +288,20 @@ export function RelayModule() {
     { key: 'workflows', label: 'Workflows', icon: Zap },
     { key: 'proactive', label: 'Proactive', icon: ArrowRight },
   ];
+
+  if (isPending && !data) {
+    return (
+      <div className="max-w-7xl w-full min-w-0 space-y-4">
+        <div className="h-36 rounded-2xl border border-white/[0.06] bg-white/[0.02] animate-pulse" />
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
+          {[1, 2, 3, 4].map(i => (
+            <div key={i} className="h-24 rounded-xl border border-white/[0.06] bg-white/[0.02] animate-pulse" />
+          ))}
+        </div>
+        <p className="text-sm text-zinc-500">Loading Relay…</p>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-6 max-w-7xl w-full min-w-0">
@@ -408,7 +331,7 @@ export function RelayModule() {
 
       {/* ── KPI Tiles ── */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
-        {kpis.map(k => (
+        {snapshot.kpis.map(k => (
           <div key={k.label} className="siren-card p-5 relative overflow-hidden glass-panel">
             <div className="absolute top-0 left-0 right-0 h-[2px]" style={{ backgroundColor: k.accent }} />
             <p className="text-[11px] text-zinc-500 uppercase tracking-wider mb-2">{k.label}</p>
@@ -437,9 +360,9 @@ export function RelayModule() {
       </div>
 
       {/* ── Tab content ── */}
-      {tab === 'conversations' && <ConversationsTab />}
-      {tab === 'workflows' && <WorkflowsTab />}
-      {tab === 'proactive' && <ProactiveTab />}
+      {tab === 'conversations' && <ConversationsTab conversations={snapshot.conversations} />}
+      {tab === 'workflows' && <WorkflowsTab workflows={snapshot.workflows} />}
+      {tab === 'proactive' && <ProactiveTab rules={snapshot.proactive} />}
 
       {/* ── Widget section (collapsible) ── */}
       <div className="siren-card glass-panel overflow-hidden">
@@ -464,7 +387,7 @@ export function RelayModule() {
             {/* Code block */}
             <div className="mt-4 relative rounded-xl bg-zinc-900/80 border border-white/[0.08] p-4 overflow-x-auto">
               <code className="text-sm font-mono text-violet-300 whitespace-nowrap">
-                {WIDGET_SNIPPET}
+                {snapshot.widgetSnippet}
               </code>
               <button
                 onClick={handleCopy}
