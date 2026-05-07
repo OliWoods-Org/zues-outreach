@@ -259,6 +259,7 @@ Master checklist and deep references:
 | [`docs/CLAUDE_TASKS.md`](docs/CLAUDE_TASKS.md) | Claude Code checklist by track |
 | [`docs/OUTREACH_LAUNCH_TASKS.md`](docs/OUTREACH_LAUNCH_TASKS.md) | **Start outreach** — Elevar + all product Airtable bases, Zeus scripts |
 | [`docs/CLAUDE_2PM_TASKS.md`](docs/CLAUDE_2PM_TASKS.md) | **2pm** repeatable ops block — links outreach doc + desktop copy |
+| [`docs/ZEUS_UI_MIDJOURNEY_REFERENCE.md`](docs/ZEUS_UI_MIDJOURNEY_REFERENCE.md) | **Zeus Web** Midjourney prompts + token alignment (`apps/zeus-web`) |
 | [`docs/ZEUS_FINAL_BUILD_PLAN.md`](docs/ZEUS_FINAL_BUILD_PLAN.md) | Phased execution — Mission Control, Airtable, workers, gates |
 | [`docs/ZEUS_OUTREACH_PLAN.md`](docs/ZEUS_OUTREACH_PLAN.md) | Portfolio bases, Listen vs responder, Growth Brain, v2 |
 | [`docs/AIRTABLE_ZEUS_SCHEMA.md`](docs/AIRTABLE_ZEUS_SCHEMA.md) | Table and field reference |

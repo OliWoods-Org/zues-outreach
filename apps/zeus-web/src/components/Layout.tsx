@@ -22,6 +22,7 @@ export const salesNavGroups: { heading: string; items: SalesNavItem[] }[] = [
     items: [
       { path: '/', label: 'Mission Control', lane: 'voice' },
       { path: '/morning-brief', label: 'Morning Brief', lane: 'voice' },
+      { path: '/relay', label: 'Relay inbox', lane: 'voice' },
       { path: '/chat', label: 'Growth coach', lane: 'voice' },
     ],
   },

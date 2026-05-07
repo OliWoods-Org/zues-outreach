@@ -4,9 +4,12 @@ import './index.css'
 // PostHog must import before App so init fires before first render
 import './lib/posthog'
 import App from './App'
+import { QueryProvider } from './providers/QueryProvider'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <App />
+    <QueryProvider>
+      <App />
+    </QueryProvider>
   </StrictMode>,
 )

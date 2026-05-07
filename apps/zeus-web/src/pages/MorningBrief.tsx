@@ -16,6 +16,7 @@
  */
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { RELAY_DEMO_CONVERSATIONS, relayBriefStatsFromConversations } from '../api/relay';
 import {
   Activity,
   ArrowRight,
@@ -149,12 +150,7 @@ function buildMockBrief(): MorningBriefData {
     },
     relay: {
       status: 'ok',
-      data: {
-        openTickets: 12,
-        avgResponseTime: '2h 14m',
-        flagged: 2,
-        resolvedToday: 8,
-      },
+      data: relayBriefStatsFromConversations(RELAY_DEMO_CONVERSATIONS),
     },
     social: {
       status: 'ok',
@@ -419,7 +415,7 @@ export function MorningBrief() {
           </SectionShell>
 
           {/* 3. Relay inbox */}
-          <SectionShell icon={Inbox} title="Relay — Unified Inbox" href="/settings" status={relay?.status ?? 'loading'} accent="blue">
+          <SectionShell icon={Inbox} title="Relay — Unified Inbox" href="/relay" status={relay?.status ?? 'loading'} accent="blue">
             {relay?.data && (
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
                 <Stat label="Open tickets" value={relay.data.openTickets} />
