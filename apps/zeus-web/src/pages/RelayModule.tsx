@@ -34,13 +34,6 @@ type RelayTab = 'conversations' | 'workflows' | 'proactive';
 // Sub-components
 // ============================================================================
 
-const kpis = [
-  { label: 'AI Resolution Rate', value: '72.3%', hint: 'vs 58% industry avg', accent: '#f59e0b' },
-  { label: 'Active Conversations', value: '12', hint: 'Live right now', accent: '#22d3ee' },
-  { label: 'This Month Saved', value: '$415', hint: 'vs Intercom Fin', accent: '#10b981' },
-  { label: 'Avg Response Time', value: '1.4 min', hint: 'AI-first routing', accent: '#a78bfa' },
-];
-
 const convStatusMeta: Record<ConvStatus, { label: string; cls: string; icon: typeof CheckCircle2 }> = {
   resolved: { label: 'Resolved', cls: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20', icon: CheckCircle2 },
   open: { label: 'Open', cls: 'bg-amber-500/10 text-amber-400 border-amber-500/20', icon: Clock },
