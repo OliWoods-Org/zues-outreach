@@ -10,6 +10,10 @@ Strategy IA: [`docs/ZEUS_MISSION_CONTROL_IA.md`](../../docs/ZEUS_MISSION_CONTROL
 
 **Assistants:** Growth coach vs Defense assistant · [`docs/CHAT_AND_ASSISTANT_BACKLOG.md`](docs/CHAT_AND_ASSISTANT_BACKLOG.md) (chat page has “Wrong assistant?” mode switch). E2E: `npm run test:e2e` (starts Vite on port 5187; avoids colliding with another app on 5173).
 
+**Relay + Chat APIs:** [`docs/RELAY_AND_CHAT_API.md`](docs/RELAY_AND_CHAT_API.md) · local mock: `npm run mock:api` (port 8788) + `VITE_ZEUS_RELAY_API_URL` / `VITE_ZEUS_CHAT_API_URL` in `.env.local`.
+
+**CI:** `.github/workflows/zeus-web-ci.yml` — build, lint, Playwright on pushes/PRs touching `apps/zeus-web`.
+
 ## Run locally
 
 ```bash

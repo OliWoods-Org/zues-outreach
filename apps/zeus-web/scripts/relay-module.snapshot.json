@@ -1,0 +1,146 @@
+{
+  "conversations": [
+    {
+      "id": "cv-001",
+      "customer": "Sarah K.",
+      "snippet": "Hi, I can't access my account after the password reset. It keeps saying...",
+      "platform": "web",
+      "status": "resolved",
+      "time": "2m ago"
+    },
+    {
+      "id": "cv-002",
+      "customer": "Marcus T.",
+      "snippet": "What are the differences between your Pro and Business plans?",
+      "platform": "web",
+      "status": "open",
+      "time": "5m ago"
+    },
+    {
+      "id": "cv-003",
+      "customer": "billing@acmecorp.com",
+      "snippet": "I was charged twice for the same invoice. My reference number is INV-2024-...",
+      "platform": "email",
+      "status": "handoff",
+      "time": "12m ago"
+    },
+    {
+      "id": "cv-004",
+      "customer": "+1 555-0192",
+      "snippet": "Need help setting up the API integration for our CRM",
+      "platform": "sms",
+      "status": "open",
+      "time": "18m ago"
+    },
+    {
+      "id": "cv-005",
+      "customer": "Jordan M.",
+      "snippet": "My trial expires tomorrow — can I get an extension?",
+      "platform": "web",
+      "status": "resolved",
+      "time": "34m ago"
+    },
+    {
+      "id": "cv-006",
+      "customer": "hello@startupxyz.io",
+      "snippet": "Looking to understand volume pricing for 500+ seats",
+      "platform": "email",
+      "status": "resolved",
+      "time": "1h ago"
+    }
+  ],
+  "workflows": [
+    {
+      "id": "wf-001",
+      "name": "After Hours",
+      "status": "active",
+      "triggerCount": 234,
+      "resolutionRate": 65.2
+    },
+    {
+      "id": "wf-002",
+      "name": "VIP Fast Lane",
+      "status": "active",
+      "triggerCount": 47,
+      "resolutionRate": 91.5
+    },
+    {
+      "id": "wf-003",
+      "name": "FAQ Deflection",
+      "status": "active",
+      "triggerCount": 389,
+      "resolutionRate": 78.4
+    },
+    {
+      "id": "wf-004",
+      "name": "Angry Customer",
+      "status": "active",
+      "triggerCount": 23,
+      "resolutionRate": 43.5
+    },
+    {
+      "id": "wf-005",
+      "name": "Billing Issue",
+      "status": "paused",
+      "triggerCount": 56,
+      "resolutionRate": 67.9
+    }
+  ],
+  "proactive": [
+    {
+      "name": "Inactive User Re-engagement",
+      "messagesSent": 34,
+      "openRate": 62.3,
+      "responseRate": 28.1,
+      "conversionRate": 12.5
+    },
+    {
+      "name": "Pricing Page Interest",
+      "messagesSent": 18,
+      "openRate": 78.9,
+      "responseRate": 44.2,
+      "conversionRate": 22.1
+    },
+    {
+      "name": "Trial Expiring",
+      "messagesSent": 23,
+      "openRate": 85.2,
+      "responseRate": 51.3,
+      "conversionRate": 31.8
+    },
+    {
+      "name": "Cart Abandoned",
+      "messagesSent": 14,
+      "openRate": 71.4,
+      "responseRate": 35.7,
+      "conversionRate": 14.3
+    }
+  ],
+  "kpis": [
+    {
+      "label": "AI Resolution Rate",
+      "value": "72.3%",
+      "hint": "vs 58% industry avg",
+      "accent": "#f59e0b"
+    },
+    {
+      "label": "Active Conversations",
+      "value": "2",
+      "hint": "Live right now",
+      "accent": "#22d3ee"
+    },
+    {
+      "label": "This Month Saved",
+      "value": "$415",
+      "hint": "vs Intercom Fin",
+      "accent": "#10b981"
+    },
+    {
+      "label": "Avg Response Time",
+      "value": "1.4 min",
+      "hint": "AI-first routing",
+      "accent": "#a78bfa"
+    }
+  ],
+  "widgetSnippet": "<script src=\"https://relay.mama.ai/widget.js\" data-token=\"relay_YOUR_TOKEN\"></script>"
+}

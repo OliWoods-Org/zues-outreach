@@ -10,6 +10,7 @@ import { ChatBreadcrumb } from '../components/chat/ChatBreadcrumb';
 import { AssistantAnnouncer } from '../components/chat/AssistantAnnouncer';
 import { TypingIndicator } from '../components/chat/TypingIndicator';
 import { fetchChatCompletion } from '../api/chat';
+import { buildDefenseAssistantStub } from '../lib/guardTelemetry';
 
 interface Message {
   id: number;
@@ -63,7 +64,7 @@ export function Chat() {
     (userText: string) => {
       return isSales
         ? `Great question about "${userText}". Here's what I'd suggest:\n\n1. Lead with value, not features\n2. Reference a specific pain point from your discovery call\n3. Keep it under 3 paragraphs\n4. End with a clear, low-friction CTA\n\nWant me to draft something specific?`
-        : `Looking into "${userText}" for you.\n\nBased on your current Guard configuration:\n- 47 calls intercepted this period\n- Average engagement time: 4m 32s per scammer\n- Top performing persona: Confused Grandma (avg 7m waste)\n\nAnything else you'd like to know?`;
+        : buildDefenseAssistantStub(userText);
     },
     [isSales]
   );
