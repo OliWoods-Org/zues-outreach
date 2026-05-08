@@ -34,11 +34,12 @@ npm run build
 
 | Area | Routes | Notes |
 |------|--------|--------|
+| **Mission** | `/` | **Growth coach chat** (primary surface); telemetry & shortcuts in a **left column** (below chat on mobile) |
 | **Lanes** | `/listen`, `/target`, `/engage`, `/convert`, `/report` | Listen + tiers UI; Engage/Convert/Report stubs |
 | **Growth** | `/publish`, `/influencers`, `/brand`, `/brand/wizard`, `/affiliates`, `/marketplace`, `/briefings` | Affiliates + Briefings have richer mocks |
 | **PPC — TNT** | `/ppc`, `/ppc/:agentId` | Adam PPC agents · [`tntPpcAgents.ts`](src/data/tntPpcAgents.ts) |
 | **Social** | `/social/activity`, `/social/autopost`, `/social/replies` | Activity tracker mock |
-| **Voice** | `/campaigns`, `/pipeline`, `/analytics`, `/scripts`, `/settings` | Outbound + dial; **Growth coach** is under **Mission** (`/chat`) |
+| **Voice** | `/campaigns`, `/pipeline`, `/analytics`, `/scripts`, `/settings` | Outbound + dial; full-screen chat also at `/chat` |
 | **Guard** | `/guard` | Guard mode |
 
 ## Ten parallel workstreams (one owner each)

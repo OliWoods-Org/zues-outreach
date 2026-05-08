@@ -32,7 +32,7 @@ const GUARD_WELCOME =
 
 type SendSource = 'composer' | 'chip' | 'regenerate' | 'url';
 
-export function Chat() {
+export function Chat({ variant = 'page' }: { variant?: 'page' | 'mission' }) {
   const { mode, setMode } = useMode();
   const isSales = mode === 'sales';
   const [searchParams, setSearchParams] = useSearchParams();
@@ -233,9 +233,11 @@ export function Chat() {
   };
 
   return (
-    <div className="flex flex-col min-h-[min(70vh,720px)] max-w-4xl w-full min-w-0">
+    <div
+      className={`flex flex-col min-h-[min(70vh,720px)] w-full min-w-0 ${variant === 'mission' ? 'max-w-none' : 'max-w-4xl'}`}
+    >
       <AssistantAnnouncer text={announceText} />
-      <ChatBreadcrumb />
+      {variant === 'page' && <ChatBreadcrumb />}
 
       <div className="mb-5">
         <div className="flex flex-wrap items-center gap-2 mb-1">
