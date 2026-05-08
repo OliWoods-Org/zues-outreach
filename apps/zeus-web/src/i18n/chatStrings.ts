@@ -31,4 +31,7 @@ export const chatStrings = {
   threadUntitled: 'New conversation',
   editLast: 'Edit last',
   hotkeyFocusHint: 'Press / to focus input',
+  voiceInput: 'Voice input',
+  voiceUnsupported: 'Voice input is not supported in this browser.',
+  pasteLargeHint: 'Large paste added to your message (truncated for safety).',
 } as const;

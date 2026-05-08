@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { Copy, RefreshCw, Send, X } from 'lucide-react';
+import { Copy, Mic, Pencil, RefreshCw, Send, X } from 'lucide-react';
 import { useSearchParams } from 'react-router-dom';
 import { useMode } from '../App';
 import { growthCoachPrompts } from '../data/growthCoachPrompts';
@@ -32,6 +32,11 @@ const GUARD_WELCOME =
 
 type SendSource = 'composer' | 'chip' | 'regenerate' | 'url';
 
+/** Large paste: cap inserted chunk and total composer length (client-side safety). */
+const MAX_PASTE_CHUNK = 10_000;
+const MAX_INPUT_LEN = 16_000;
+const LARGE_PASTE_THRESHOLD = 600;
+
 export function Chat({ variant = 'page' }: { variant?: 'page' | 'mission' }) {
   const { mode, setMode } = useMode();
   const isSales = mode === 'sales';
@@ -49,7 +54,10 @@ export function Chat({ variant = 'page' }: { variant?: 'page' | 'mission' }) {
   const [isTyping, setIsTyping] = useState(false);
   const [announceText, setAnnounceText] = useState<string | null>(null);
   const [exportToast, setExportToast] = useState<string | null>(null);
+  const [voiceToast, setVoiceToast] = useState<string | null>(null);
+  const [pasteToast, setPasteToast] = useState<string | null>(null);
   const typingLock = useRef(false);
+  const voiceRecRef = useRef<{ stop: () => void } | null>(null);
 
   const accentColor = isSales ? '#a78bfa' : '#fb7185';
 
@@ -119,7 +127,9 @@ export function Chat({ variant = 'page' }: { variant?: 'page' | 'mission' }) {
   );
 
   const handleSendRef = useRef(handleSend);
-  handleSendRef.current = handleSend;
+  useEffect(() => {
+    handleSendRef.current = handleSend;
+  }, [handleSend]);
 
   /** Reset thread when Sales/Guard changes; restore draft for target mode. */
   useEffect(() => {
@@ -186,6 +196,14 @@ export function Chat({ variant = 'page' }: { variant?: 'page' | 'mission' }) {
     return () => window.removeEventListener('keydown', onKey);
   }, []);
 
+  useEffect(
+    () => () => {
+      voiceRecRef.current?.stop();
+      voiceRecRef.current = null;
+    },
+    []
+  );
+
   const switchToDefenseAssistant = () => {
     trackZeus('wrong_assistant_switch', { to: 'guard' });
     setAssistBanner(
@@ -232,12 +250,91 @@ export function Chat({ variant = 'page' }: { variant?: 'page' | 'mission' }) {
     });
   };
 
+  const editLastUser = useCallback(() => {
+    if (isTyping || typingLock.current) return;
+    setMessages(prev => {
+      if (prev.length < 2) return prev;
+      const last = prev[prev.length - 1];
+      const before = prev[prev.length - 2];
+      let userText: string | null = null;
+      let next = prev;
+      if (last.role === 'assistant' && before.role === 'user') {
+        userText = before.content;
+        next = prev.slice(0, -2);
+      } else if (last.role === 'user') {
+        userText = last.content;
+        next = prev.slice(0, -1);
+      }
+      if (userText !== null) {
+        const text = userText;
+        queueMicrotask(() => {
+          setInput(text);
+          writeDraft(isSales ? 'sales' : 'guard', text);
+        });
+        trackZeus('chat_edit_last', { mode: isSales ? 'sales' : 'guard' });
+        return next;
+      }
+      return prev;
+    });
+  }, [isSales, isTyping]);
+
+  const startVoice = useCallback(() => {
+    type RecCtor = new () => {
+      lang: string;
+      interimResults: boolean;
+      continuous: boolean;
+      start: () => void;
+      stop: () => void;
+      onresult: ((e: Event) => void) | null;
+      onerror: ((e: Event) => void) | null;
+      onend: (() => void) | null;
+    };
+    const w = window as unknown as { SpeechRecognition?: RecCtor; webkitSpeechRecognition?: RecCtor };
+    const SR = w.SpeechRecognition ?? w.webkitSpeechRecognition;
+    if (!SR) {
+      setVoiceToast(chatStrings.voiceUnsupported);
+      trackZeus('chat_voice_unsupported', {});
+      window.setTimeout(() => setVoiceToast(null), 4200);
+      return;
+    }
+    voiceRecRef.current?.stop();
+    voiceRecRef.current = null;
+    const rec = new SR();
+    rec.lang = 'en-US';
+    rec.interimResults = true;
+    rec.continuous = false;
+    rec.onresult = e => {
+      const ev = e as unknown as {
+        resultIndex: number;
+        results: { length: number; [i: number]: { 0: { transcript: string } } };
+      };
+      let text = '';
+      for (let i = ev.resultIndex; i < ev.results.length; i++) {
+        text += ev.results[i][0].transcript;
+      }
+      const chunk = text.trim();
+      if (!chunk) return;
+      setInput(prev => (prev ? `${prev} ${chunk}`.trim() : chunk));
+    };
+    rec.onerror = () => {
+      setVoiceToast('Voice input stopped');
+      trackZeus('chat_voice_error', {});
+      window.setTimeout(() => setVoiceToast(null), 3200);
+    };
+    rec.onend = () => {
+      voiceRecRef.current = null;
+    };
+    rec.start();
+    voiceRecRef.current = { stop: () => rec.stop() };
+    trackZeus('chat_voice_start', { mode: isSales ? 'sales' : 'guard' });
+  }, [isSales]);
+
   return (
     <div
       className={`flex flex-col min-h-[min(70vh,720px)] w-full min-w-0 ${variant === 'mission' ? 'max-w-none' : 'max-w-4xl'}`}
     >
       <AssistantAnnouncer text={announceText} />
-      {variant === 'page' && <ChatBreadcrumb />}
+      {(variant === 'page' || variant === 'mission') && <ChatBreadcrumb />}
 
       <div className="mb-5">
         <div className="flex flex-wrap items-center gap-2 mb-1">
@@ -326,9 +423,28 @@ export function Chat({ variant = 'page' }: { variant?: 'page' | 'mission' }) {
             <RefreshCw className="w-3.5 h-3.5" />
             {chatStrings.regenerate}
           </button>
+          <button
+            type="button"
+            onClick={editLastUser}
+            disabled={messages.length < 2 || isTyping}
+            className="inline-flex items-center gap-1.5 text-[11px] font-medium text-zinc-400 hover:text-white border border-white/[0.08] rounded-lg px-2.5 py-1.5 min-h-9 disabled:opacity-40"
+          >
+            <Pencil className="w-3.5 h-3.5" />
+            {chatStrings.editLast}
+          </button>
           {exportToast && (
             <span className="text-[11px] text-teal-400/95" role="status">
               {exportToast}
+            </span>
+          )}
+          {voiceToast && (
+            <span className="text-[11px] text-amber-400/95" role="alert">
+              {voiceToast}
+            </span>
+          )}
+          {pasteToast && (
+            <span className="text-[11px] text-zinc-400/95" role="status">
+              {pasteToast}
             </span>
           )}
         </div>
@@ -336,6 +452,17 @@ export function Chat({ variant = 'page' }: { variant?: 'page' | 'mission' }) {
 
       {/* Messages */}
       <div className="flex-1 overflow-y-auto space-y-4 mb-6 min-h-0">
+        {messages.length === 1 && (
+          <div className="flex justify-center py-2 mb-1" aria-hidden>
+            <div
+              className="h-12 w-12 rounded-full border border-white/[0.06] opacity-90"
+              style={{
+                background:
+                  'radial-gradient(circle at 30% 30%, rgba(45,212,191,0.22), transparent 65%), radial-gradient(circle at 70% 70%, rgba(167,139,250,0.15), transparent 60%)',
+              }}
+            />
+          </div>
+        )}
         {messages.map(msg => (
           <div key={msg.id} className={`flex gap-3 ${msg.role === 'user' ? 'justify-end' : ''}`}>
             {msg.role === 'assistant' && (
@@ -414,21 +541,44 @@ export function Chat({ variant = 'page' }: { variant?: 'page' | 'mission' }) {
       {/* Input */}
       <div className="flex flex-col gap-1.5">
         <p className="text-[10px] text-zinc-600">{chatStrings.hotkeyFocusHint}</p>
-        <div className="flex gap-3">
+        <div className="flex gap-2 sm:gap-3 items-stretch">
+          <button
+            type="button"
+            onClick={startVoice}
+            disabled={isTyping}
+            className="shrink-0 px-3 rounded-lg border border-white/[0.08] text-zinc-300 hover:text-white hover:bg-white/[0.05] min-h-11 inline-flex items-center justify-center disabled:opacity-40 transition-colors"
+            aria-label={chatStrings.voiceInput}
+            title={chatStrings.voiceInput}
+          >
+            <Mic className="w-4 h-4" />
+          </button>
           <input
             ref={inputRef}
             type="text"
             value={input}
             onChange={e => setInput(e.target.value)}
             onKeyDown={e => e.key === 'Enter' && handleSend()}
+            onPaste={e => {
+              const t = e.clipboardData?.getData('text/plain') ?? '';
+              if (t.length <= LARGE_PASTE_THRESHOLD) return;
+              e.preventDefault();
+              const chunk = t.slice(0, MAX_PASTE_CHUNK);
+              setInput(prev => {
+                const merged = `${prev ? `${prev}\n\n` : ''}${chunk}`;
+                return merged.length > MAX_INPUT_LEN ? merged.slice(0, MAX_INPUT_LEN) : merged;
+              });
+              setPasteToast(chatStrings.pasteLargeHint);
+              window.setTimeout(() => setPasteToast(null), 3800);
+              trackZeus('chat_paste_large', { len: chunk.length });
+            }}
             placeholder={isSales ? chatStrings.placeholderGrowth : chatStrings.placeholderDefense}
-            className="flex-1 bg-[#0a0a1a] border border-[rgba(255,255,255,0.03)] rounded-lg px-4 py-3 text-sm text-white placeholder-zinc-600 focus:outline-none focus:border-[rgba(255,255,255,0.08)] transition-colors min-h-11"
+            className="flex-1 min-w-0 bg-[#0a0a1a] border border-[rgba(255,255,255,0.03)] rounded-lg px-4 py-3 text-sm text-white placeholder-zinc-600 focus:outline-none focus:border-[rgba(255,255,255,0.08)] transition-colors min-h-11"
           />
           <button
             type="button"
             onClick={() => handleSend()}
             disabled={isTyping}
-            className="px-4 rounded-lg transition-all duration-150 hover:opacity-80 text-white min-h-11 min-w-11 inline-flex items-center justify-center disabled:opacity-40"
+            className="shrink-0 px-4 rounded-lg transition-all duration-150 hover:opacity-80 text-white min-h-11 min-w-11 inline-flex items-center justify-center disabled:opacity-40"
             style={{ backgroundColor: accentColor }}
             aria-label={chatStrings.sendLabel}
           >

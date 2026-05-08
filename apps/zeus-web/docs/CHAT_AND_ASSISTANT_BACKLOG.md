@@ -2,13 +2,15 @@
 
 Prioritized ideas beyond the current stub UI (mock replies, no backend). Pick by product phase.
 
-**Done in app (scaffold / partial):** 2 mode pill, 3 Guard CTA + `?q=`, 4 session-memory hint, 5 export MD, 13 typing stub, 14 regenerate, 19 thread title, 21 `/` + `Esc`, 22 breadcrumb, 27 `aria-live`, 28 contrast tweaks (`zinc-*`), 29 session draft, 30 idempotent `q` via `Set`, 33–34 `trackZeus` events, 35 strings in `i18n/chatStrings.ts`, Playwright `e2e/chat.spec.ts`, **`e2e/wrong-assistant.spec.ts` + `e2e/relay.spec.ts`**, Guard stub grounded in `guardStats` + call log (`guardTelemetry.ts`), GitHub Actions `zeus-web-ci.yml`, mock API `scripts/mock-zeus-api.mjs` + `RELAY_AND_CHAT_API.md`. Still open: real LLM/RAG, Guard live telemetry API, rate limits, audit log, voice, files, mobile shortcut tab, full i18n locales.
+**Done in app (scaffold / partial):** 2 mode pill, 3 Guard CTA + `?q=`, 4 session-memory hint, 5 export MD, **Mission Control first-visit coach** (`MissionFirstVisitCoach` + `trackZeus('mission_chat_coach_dismiss')`), **15 edit-last user** + composer toolbar, **17 voice input** (Web Speech API + unsupported toast + `chat_voice_*` events), **large text paste** handling (cap + `chat_paste_large`), **20 empty-state** gradient orb, 13 typing stub, 14 regenerate, 19 thread title, 21 `/` + `Esc`, 22 breadcrumb, 27 `aria-live`, 28 contrast tweaks (`zinc-*`), 29 session draft, 30 idempotent `q` via `Set`, 33–34 `trackZeus` events, 35 strings in `i18n/chatStrings.ts`, Playwright `e2e/chat.spec.ts`, **`e2e/wrong-assistant.spec.ts` + `e2e/relay.spec.ts`**, Guard stub grounded in `guardStats` + call log (`guardTelemetry.ts`), GitHub Actions `zeus-web-ci.yml` (build + **ESLint** + E2E), mock API `scripts/mock-zeus-api.mjs` + `RELAY_AND_CHAT_API.md`.
+
+**Requires backend or follow-up:** real LLM/RAG + streaming, Guard live telemetry API, rate limits, audit log, **file** upload / rich paste, mobile shortcut tab, full i18n locales, RAG citations.
 
 ---
 
 ## Product & onboarding
 
-1. **First-visit coach tooltip** — One-time spotlight on Mission Control assistant + sidebar Growth coach label.
+1. **First-visit coach tooltip** — One-time card on Mission Control chat (`MissionFirstVisitCoach`, localStorage dismiss).
 2. **Mode pill in chat header** — Live badge “Sales” / “Guard” next to the page title (mirrors sidebar).
 3. **Deep link from Guard dashboard** — “Open Defense assistant” on `/guard` with `?q=` preset.
 4. **Session memory banner** — “You have 2 threads” if we add multi-conversation later; until then “Conversation clears when you switch Sales/Guard”.
@@ -28,12 +30,12 @@ Prioritized ideas beyond the current stub UI (mock replies, no backend). Pick by
 
 13. **Streaming responses** — Typing indicator + partial text for long drafts.
 14. **Regenerate** — Per assistant message: “Try again” / tone variants.
-15. **Edit last user message** — Standard chat affordance.
-16. **File / paste** — Drop deck or email thread for context (with size limits).
-17. **Voice input** — Web Speech API or mobile native.
+15. **Edit last user message** — Pencil control + `chat_edit_last` (strips last turn for re-send).
+16. **File / paste** — Text: large paste capped + hint. File drop / rich HTML still TBD.
+17. **Voice input** — Web Speech in supported browsers; `chat_voice_start` / `chat_voice_unsupported` / `chat_voice_error`.
 18. **Inline citations** — When RAG is added, link to doc chunks.
 19. **Thread title** — Auto-rename from first user message.
-20. **Empty state art** — Light illustration for zero messages after clear.
+20. **Empty state art** — Subtle gradient orb when only the welcome message is present.
 
 ## Navigation & IA
 

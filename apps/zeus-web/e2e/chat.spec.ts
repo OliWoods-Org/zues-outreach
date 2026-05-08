@@ -19,26 +19,24 @@ test.describe('Assistant chat', () => {
   test('breadcrumb links to Mission home', async ({ page }) => {
     await page.goto('/chat');
     await page.locator('[aria-label="Breadcrumb"]').getByRole('link', { name: 'Mission' }).click();
-    await expect(
-      page.getByRole('main').getByRole('heading', { name: 'Mission Control', level: 2 })
-    ).toBeVisible();
+    await expect(page).toHaveURL('/');
+    await expect(page.getByRole('banner').getByRole('heading', { name: 'Mission Control' })).toBeVisible();
   });
 
   /**
-   * Regression: `?q=` seeding must run when `q` changes, not block all future seeds after the first.
-   * Two Mission chips in sequence assert a second distinct query is applied after the first is stripped.
+   * Two Growth coach chips in sequence — each prompt appears as a user bubble.
+   * Chips hide after the first exchange; reload restores the welcome thread so the second chip is available.
    */
   test('second Mission chip seeds a new prompt after the first', async ({ page }) => {
     await page.goto('/');
-    await page.getByRole('link', { name: 'Cold email draft' }).click();
+    await page.getByRole('button', { name: 'Cold email draft' }).click();
     await expect(
       page.getByRole('main').locator('.max-w-lg').filter({ hasText: /^Draft a cold email for a SaaS prospect$/ })
     ).toBeVisible({ timeout: 8000 });
-    await page.locator('[aria-label="Breadcrumb"]').getByRole('link', { name: 'Mission' }).click();
-    await expect(
-      page.getByRole('main').getByRole('heading', { name: 'Mission Control', level: 2 })
-    ).toBeVisible();
-    await page.getByRole('link', { name: 'Objection handling' }).click();
+
+    await page.reload();
+    await expect(page.getByRole('button', { name: 'Objection handling' })).toBeVisible({ timeout: 8000 });
+    await page.getByRole('button', { name: 'Objection handling' }).click();
     await expect(
       page.getByRole('main').locator('.max-w-lg').filter({
         hasText: /^Handle the "we already have a solution" objection$/,

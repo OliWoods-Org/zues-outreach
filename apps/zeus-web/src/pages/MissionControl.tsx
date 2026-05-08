@@ -18,6 +18,7 @@ import { MissionKpiCharts } from '../components/MissionKpiCharts';
 import { ZeusGrowthPulse } from '../components/ZeusGrowthPulse';
 import { ZeusIntelFeed } from '../components/ZeusIntelFeed';
 import { ZeusMissionHero } from '../components/ZeusMissionHero';
+import { MissionFirstVisitCoach } from '../components/MissionFirstVisitCoach';
 import { Chat } from './Chat';
 import { pipelineStats } from '../data/deals';
 import { MARKETPLACE_CREATOR_SHARE_PERCENT } from '../constants/marketplace';
@@ -65,7 +66,8 @@ export function MissionControl() {
         className="order-1 xl:order-2 flex-1 min-w-0 min-h-0 flex flex-col"
         aria-label="Growth coach"
       >
-        <div className="rounded-2xl border border-teal-500/20 bg-[rgba(6,10,16,0.72)] backdrop-blur-md shadow-[inset_0_1px_0_0_rgba(45,212,191,0.08)] p-4 sm:p-6 md:p-8 flex-1 min-h-[min(72vh,780px)]">
+        <div className="rounded-2xl border border-teal-500/20 bg-[rgba(6,10,16,0.72)] backdrop-blur-md shadow-[inset_0_1px_0_0_rgba(45,212,191,0.08)] p-4 sm:p-6 md:p-8 flex-1 min-h-[min(72vh,780px)] relative">
+          <MissionFirstVisitCoach />
           <Chat variant="mission" />
         </div>
       </section>

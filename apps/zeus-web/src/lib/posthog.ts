@@ -15,7 +15,6 @@ if (KEY) {
     api_host: 'https://app.posthog.com',
     autocapture: true,
     capture_pageview: true,
-    // @ts-ignore — PostHog 1.x property (enable_heatmaps may not be in older @types yet)
     enable_heatmaps: true,
     session_recording: {
       maskAllInputs: false,

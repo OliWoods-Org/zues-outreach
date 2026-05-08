@@ -10,7 +10,6 @@ const DEV = import.meta.env.DEV;
 
 export function trackZeus(event: string, payload?: ZeusAnalyticsPayload): void {
   if (DEV) {
-    // eslint-disable-next-line no-console
     console.info(`[zeus-analytics] ${event}`, payload ?? {});
   }
   // ph() in posthog.ts handles PostHog capture + optional window.zeusTrack forward
